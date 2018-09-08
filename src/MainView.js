@@ -6,35 +6,33 @@ import openSocket from 'socket.io-client';
 const socket = openSocket('http://localhost:8080');
 
 class MainView extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {isLoggedIn: false};
-  }
+	constructor(props) {
+		super(props);
+		this.state = { isLoggedIn: false };
+	}
 
-  change(event) {
-    socket.emit('change');
-    this.setState((prevState) => ({
-      isLoggedIn: !prevState.isLoggedIn
-    }));
-  }
+	attemptConnection(event) {
+		socket.emit('attemptConnection');
+		this.setState((prevState) => ({
+			isLoggedIn: !prevState.isLoggedIn
+		}));
+	}
 
-  render() {
-    if(this.state.isLoggedIn){
-      return (
-        <div className="VoteView">
-          <VoteView socket={socket}/>   
-          <button onClick={this.change.bind(this)}>Go to Login</button> 
-        </div>
-      );
-    }else{
-      return (
-        <div className="LoginView">
-          <LoginView socket={socket}/> 
-          <button onClick={this.change.bind(this)}>Go to Vote</button>    
-        </div>
-      );
-    }
-  }
+	render() {
+		if (this.state.isLoggedIn) {
+			return (
+				<div className="MainView">
+					<VoteView socket={socket} />
+				</div>
+			);
+		} else {
+			return (
+				<div className="MainView">
+					<LoginView socket={socket} attemptConnection={this.attemptConnection.bind(this)} />
+				</div>
+			);
+		}
+	}
 }
 
 export default MainView;
