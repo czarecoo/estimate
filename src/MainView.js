@@ -11,8 +11,7 @@ class MainView extends React.Component {
 		this.state = { isLoggedIn: false };
 	}
 
-	attemptConnection(event) {
-		socket.emit('attemptConnection');
+	attemptConnection() {
 		this.setState((prevState) => ({
 			isLoggedIn: !prevState.isLoggedIn
 		}));

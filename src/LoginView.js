@@ -4,90 +4,76 @@ import './css/LoginView.css';
 class LoginView extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { isJoingSession: false, isSessionWithJira: false, login: '', sessionId: '', jiraurl: 'estimatetest.atlassian.net', jiralogin: 'czarecoo@o2.pl', jirapassword: 'asdqwe123', jiraproject: 'ES' };
+		this.socket = this.props.socket;
+		this.state = { isJoinSession: false, isSessionWithJira: false, login: '', sessionId: '', jiraUrl: 'estimatetest.atlassian.net', jiraLogin: 'czarecoo@o2.pl', jiraPassword: 'asdqwe123', jiraProject: 'ES' };
 	}
 
-	isJoingChange(event) {
+	isJoinChange() {
+		if (!this.state.isJoinSession && this.state.isSessionWithJira) {
+			this.isSessionWithJiraChange();
+		}
+
 		this.setState((prevState) => ({
-			isJoingSession: !prevState.isJoingSession
+			isJoinSession: !prevState.isJoinSession
 		}));
 	}
 
-	isSessionWithJiraChange(event) {
+	isSessionWithJiraChange() {
 		this.setState((prevState) => ({
 			isSessionWithJira: !prevState.isSessionWithJira
 		}));
 	}
 
-	onLoginChange(event) {
-		this.setState({ login: event.target.value });
+	handleChange(event) {
+		this.setState({ [event.target.name]: event.target.value });
 	}
 
-	onSessionIdChange(event) {
-		this.setState({ sessionId: event.target.value });
-	}
-
-	onJiraUrlChange(event) {
-		this.setState({ jiraurl: event.target.value });
-	}
-
-	onJiraLoginChange(event) {
-		this.setState({ jiralogin: event.target.value });
-	}
-
-	onJiraPasswordChange(event) {
-		this.setState({ jirapassword: event.target.value });
-	}
-
-	onJiraProjectChange(event) {
-		this.setState({ jiraproject: event.target.value });
-	}
-
-	attemptConnection() {
+	tryToConnect() {
+		//this.socket.emit('connect123');
 		this.props.attemptConnection();
 	}
 
 	render() {
-		const jiraData = (
+		const jiraDataTextContent = (
 			<p>
 				<label>Jira Url: </label><br></br>
-				<input className="field__input form-control" type="text" value={this.state.jiraurl} onChange={this.onJiraUrlChange.bind(this)} required />
+				<input className="field__input form-control" name="jiraUrl" type="text" value={this.state.jiraUrl} onChange={this.handleChange.bind(this)} required />
 				<br></br>
 				<label>Jira Login: </label><br></br>
-				<input className="field__input form-control" type="text" value={this.state.jiralogin} onChange={this.onJiraLoginChange.bind(this)} required />
+				<input className="field__input form-control" name="jiraLogin" type="text" value={this.state.jiraLogin} onChange={this.handleChange.bind(this)} required />
 				<br></br>
 				<label>Jira Password: </label><br></br>
-				<input className="field__input form-control" type="password" value={this.state.jirapassword} onChange={this.onJiraPasswordChange.bind(this)} required />
+				<input className="field__input form-control" name="jiraPassword" type="password" value={this.state.jiraPassword} onChange={this.handleChange.bind(this)} required />
 				<br></br>
 				<label>Jira Project Name: </label><br></br>
-				<input className="field__input form-control" type="text" value={this.state.jiraproject} onChange={this.onJiraProjectChange.bind(this)} required />
+				<input className="field__input form-control" name="jiraProject" type="text" value={this.state.jiraProject} onChange={this.handleChange.bind(this)} required />
 			</p >
 		);
 		const jiraCheckboxContent = (
 			<p>
-				<label><input type="checkbox" name="isSessionWithJiraCheckbox" onChange={this.isSessionWithJiraChange.bind(this)} required />Connect with Jira</label>
+				<label><input type="checkbox" name="isSessionWithJiraCheckbox" onChange={this.isSessionWithJiraChange.bind(this)} />Connect with Jira</label>
 			</p>
 		);
-		const joinSessionTextContent = (
+		const sessionIdTextContent = (
 			<p>
 				Enter sessionID:<br></br>
-				<input className="sessionIdText" type="text" value={this.state.sessionId} onChange={this.onSessionIdChange.bind(this)} required />
+				<input className="sessionIdText" name="sessionId" type="text" value={this.state.sessionId} onChange={this.handleChange.bind(this)} required />
 			</p>
 		);
 		return (
 			<div className="LoginView">
 				<p>
 					Enter your login:<br></br>
-					<input className="loginText" type="text" value={this.state.login} onChange={this.onLoginChange.bind(this)} />
+					<input className="loginText" name="login" type="text" value={this.state.login} onChange={this.handleChange.bind(this)} />
 				</p>
 				<p>
 					Would you like to:<br></br>
-					<label><input type="radio" name="isJoiningSessionRadio" checked={!this.state.isJoingSession} onChange={this.isJoingChange.bind(this)} /> Create Session</label>
-					<label><input type="radio" name="isJoiningSessionRadio" checked={this.state.isJoingSession} onChange={this.isJoingChange.bind(this)} /> Join Session</label>
+					<label><input type="radio" name="isJoiningSessionRadio" checked={!this.state.isJoinSession} onChange={this.isJoinChange.bind(this)} /> Create Session</label>
+					<label><input type="radio" name="isJoiningSessionRadio" checked={this.state.isJoinSession} onChange={this.isJoinChange.bind(this)} /> Join Session</label>
 				</p>
-				{this.state.isJoingSession ? joinSessionTextContent : jiraCheckboxContent}
-				{this.state.isSessionWithJira ? jiraData : ""}
-				<button type="submit" onClick={this.props.attemptConnection.bind(this)}>{this.state.isJoingSession ? "Join Session" : "Create session"}</button>
+				{this.state.isJoinSession ? sessionIdTextContent : jiraCheckboxContent}
+				{this.state.isSessionWithJira ? jiraDataTextContent : ""}
+				<button type="submit" onClick={this.tryToConnect.bind(this)}>{this.state.isJoinSession ? "Join Session" : "Create session"}</button>
 			</div>
 		);
 	}
