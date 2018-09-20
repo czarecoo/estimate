@@ -10,14 +10,23 @@ class VoteView extends React.Component {
 	constructor(props) {
 		super(props);
 		this.socket = this.props.socket;
-		this.previewStory = { summary: "longblebleble", tense: 1, users: [{ name: "Czareg" }], votes: [5], finalScore: 13 };
-		this.state = { userStory: "dasd", userList: [{ name: "Czareg", isActive: true, creator: true }, { name: "Wojteg", isActive: false, creator: true }], futureStories: [{ issueId: "I-91919", shortSummary: "blellbelleblelb..." }], currentStory: [{ issueId: "I-11119", shortSummary: "Asdasdasdasdasdddb..." }], pastStories: [{ issueId: "I-42319", shortSummary: "Help..." }, { issueId: "I-14429", shortSummary: "BLEBLEBELBELBELBE..." }] }
+		this.state = {
+			userStory: "dasd",
+			userList: [{ name: "Czareg", isActive: false, isCreator: true }, { name: "Wojteg", isActive: true, isCreator: false }],
+			previewStory: null,
+			futureStories: [{ tense: -1, issueId: "I-91919", summary: "blellbelleblelbblellbelleblelb", shortSummary: "blellbelleblelb..." }],
+			currentStory: [{ tense: 0, issueId: "I-11119", summary: "AsdasdasdasdasdddbAsdasdasdasdasdddb", shortSummary: "Asdasdasdasdasdddb...", users: [{ name: "MICHAU" }, { name: "Robak" }], votes: [3, 5], finalScore: 5 }],
+			pastStories: [{ tense: 1, issueId: "I-42319", summary: "HelpHelpHelpHelpHelpHelpHelpHelpHelp", shortSummary: "Help...", users: [{ name: "Czareg" }, { name: "Bozena" }], votes: [0, 5], finalScore: 1 }]
+		}
 	}
 	refresh() {
 		window.location.reload()
 	}
 	handleChange(event) {
 		this.setState({ [event.target.name]: event.target.value });
+	}
+	handlePreviewChange(story) {
+		this.setState({ previewStory: story });
 	}
 	sumStories() {
 		return (this.state.futureStories.length + this.state.currentStory.length + this.state.pastStories.length);
@@ -35,13 +44,13 @@ class VoteView extends React.Component {
 				<label>Finished stories:</label>{this.state.pastStories.length} / {this.sumStories()}<br></br>
 
 				List of future stories:<br></br>
-				<VoteViewStoriesList storyList={this.state.futureStories} />
+				<VoteViewStoriesList storyList={this.state.futureStories} onSelectingStory={this.handlePreviewChange.bind(this)} />
 				Current Story:<br></br>
-				<VoteViewStoriesList storyList={this.state.currentStory} />
+				<VoteViewStoriesList storyList={this.state.currentStory} onSelectingStory={this.handlePreviewChange.bind(this)} />
 				List of past stories:<br></br>
-				<VoteViewStoriesList storyList={this.state.pastStories} />
+				<VoteViewStoriesList storyList={this.state.pastStories} onSelectingStory={this.handlePreviewChange.bind(this)} />
 
-				<VoteViewPreview previewStory={this.previewStory} />
+				<VoteViewPreview previewStory={this.state.previewStory} onClosingPreview={this.handlePreviewChange.bind(this)} />
 			</div>
 		);
 	}

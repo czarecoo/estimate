@@ -3,38 +3,34 @@ import './css/VoteViewPreview.css';
 import VoteViewVoteTable from './VoteViewVoteTable'
 
 class VoteViewPreview extends React.Component {
-	constructor(props) {
-		super(props);
-		this.previewStory = this.props.previewStory;
-	}
 	handleChange(event) {
 		this.setState({ [event.target.name]: event.target.value });
 	}
 	render() {
-		if (this.previewStory === undefined || this.previewStory.summary === undefined) {
+		if (this.props.previewStory === null) {
 			return null;
 		}
-
 		var contentDependingOnStoryTense;
-		switch (this.previewStory.tense) {
+		switch (this.props.previewStory.tense) {
 			case -1: {
 				contentDependingOnStoryTense = (<div><button>Start story</button></div>)
 				break;
 			}
 			case 0: {
-				contentDependingOnStoryTense = (<div><button>Finish story</button> Current Votes:< VoteViewVoteTable story={this.previewStory} /></div>)
+				contentDependingOnStoryTense = (<div><button>Finish story</button><button>Mark as Future</button><br></br> Current Votes:<br></br>< VoteViewVoteTable story={this.props.previewStory} /></div>)
 				break;
 			}
 			case 1: {
-				contentDependingOnStoryTense = (<div><button>Revote</button> Past Votes:< VoteViewVoteTable story={this.previewStory} /></div>)
+				contentDependingOnStoryTense = (<div><button>Revote</button><button>Mark as future</button><br></br> Past Votes:<br></br>< VoteViewVoteTable story={this.props.previewStory} /></div>)
 				break;
 			}
 			default:
 		}
 		return (
 			<div className="VoteViewPreview">
+				<button onClick={() => { this.props.onClosingPreview(null) }}>Close Preview</button><br></br>
 				Preview Story<br></br>
-				<textarea type="text" placeholder="Select story to preview it" defaultValue={this.previewStory.summary} style={{ resize: "none", }} />
+				<textarea type="text" placeholder="Select story to preview it" defaultValue={this.props.previewStory.summary} style={{ resize: "none", }} />
 				{contentDependingOnStoryTense}
 			</div>
 		);

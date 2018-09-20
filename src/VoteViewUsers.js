@@ -9,7 +9,7 @@ class VoteViewUsers extends React.Component {
 	render() {
 		const users = this.props.userList.map((user, i) => {
 			return (
-				<User key={i} name={user.name} isActive={user.isActive} creator={user.isCreator} isSuperUser={this.props.isSuperUser} socket={this.socket} />
+				<User key={i} name={user.name} isActive={user.isActive} isCreator={user.isCreator} isSuperUser={this.props.isSuperUser} user={user} socket={this.socket} />
 			)
 		});
 
@@ -36,22 +36,29 @@ class User extends React.Component {
 		this.kick = this.kick.bind(this);
 	}
 	kick() {
-		this.props.socket.emit("user:kick", this.socketid, "kicking", this.props.sessionid);
+		console.log(this.props.user);
+		this.props.socket.emit("kick", this.socketid, "kicking", this.props.sessionid);
+	}
+	passCreator() {
+		console.log(this.props.user);
+		this.props.socket.emit("passCreator", this.socketid, "kicking", this.props.sessionid);
 	}
 	render() {
-		var activity = (<img src="user-inactive.png" id="user-inactive" alt="" />);
+		var activity = (<img src="user-inactive.png" alt="" />);
 		if (this.props.isActive) {
-			activity = (<img src="user-active.png" id="user-active" alt="" />);
+			activity = (<img src="user-active.png" alt="" />);
 		}
-		var creatorImg = (<td></td>);
+		var creatorImg = null;
 		if (this.props.isCreator) {
-			creatorImg = (<td className="chat"><img src="creator.png" id="creatorp" alt="" /></td>);
+			creatorImg = (<td className="creatorImg"><img src="creator.png" alt="" /></td>);
 		}
 		if (this.props.isSuperUser) {
 			return (
 				<tr className="chat">
 					<td className="chat"><b>{this.props.name}</b></td>
 					<td>{activity}</td>
+					<td className="chat"><button onClick={this.kick.bind(this)}>Kick</button></td>
+					<td className="chat"><button onClick={this.passCreator.bind(this)}>Pass creator</button></td>
 					{creatorImg}
 				</tr>
 			);
@@ -60,7 +67,6 @@ class User extends React.Component {
 				<tr className="chat">
 					<td className="chat"><b>{this.props.name}</b></td>
 					<td>{activity}</td>
-					<td className="chat"><button onClick={this.kick} className="btn btn-md btn-primary btnnormal">Kick</button></td>
 					{creatorImg}
 				</tr>
 			);

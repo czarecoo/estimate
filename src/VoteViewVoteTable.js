@@ -2,38 +2,36 @@ import React from 'react';
 import './css/VoteViewVoteTable.css';
 
 class VoteViewVoteTable extends React.Component {
-	constructor(props) {
-		super(props);
-		this.story = this.props.story;
-	}
 	render() {
-		if (this.story === undefined || this.story.users === undefined || this.story.votes === undefined) {
+		if (this.props.story === undefined || this.props.story.users === undefined || this.props.story.votes === undefined) {
 			return null;
 		}
-		const users = this.story.users.map((user, i) => {
+		const users = this.props.story.users.map((user, i) => {
 			return (
 				<td key={i}>{user.name}</td>
 			)
 		});
-		const votes = this.story.votes.map((vote, i) => {
+		const votes = this.props.story.votes.map((vote, i) => {
 			return (
 				<td key={i}>{vote === 0 ? '?' : vote}</td>
 			)
 		});
 		return (
-			<div className="VoteViewVoteTable">
-				<table>
+			<div>
+				<table className="VoteTable">
 					<tbody>
 						<tr>
+							<td>User: </td>
 							{users}
 						</tr>
 						<tr>
+							<td>Vote: </td>
 							{votes}
 						</tr>
 					</tbody>
 				</table>
 				<br></br>
-				Final score: {this.story.finalScore}
+				Final score: {this.props.story.finalScore}
 			</div>
 		);
 	}

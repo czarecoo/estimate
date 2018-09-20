@@ -5,7 +5,7 @@ class VoteViewStoriesList extends React.Component {
 	render() {
 		const stories = this.props.storyList.map((story, i) => {
 			return (
-				<button key={i}>{story.issueId}<br></br>{story.shortSummary}</button>
+				<button key={i} onClick={() => { this.props.onSelectingStory(story) }}>{story.issueId}<br></br>{story.shortSummary}</button>
 			)
 		});
 		return (
