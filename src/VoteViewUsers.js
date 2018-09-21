@@ -51,6 +51,10 @@ class User extends React.Component {
 		var creatorImg = null;
 		if (this.props.isCreator) {
 			creatorImg = (<td className="creatorImg"><img src="creator.png" alt="" /></td>);
+		} else {
+			if (this.props.isSuperUser) {
+				creatorImg = (<td className="chat"><button onClick={this.passCreator.bind(this)}>Pass creator</button></td>);
+			}
 		}
 		if (this.props.isSuperUser) {
 			return (
@@ -58,7 +62,6 @@ class User extends React.Component {
 					<td className="chat"><b>{this.props.name}</b></td>
 					<td>{activity}</td>
 					<td className="chat"><button onClick={this.kick.bind(this)}>Kick</button></td>
-					<td className="chat"><button onClick={this.passCreator.bind(this)}>Pass creator</button></td>
 					{creatorImg}
 				</tr>
 			);

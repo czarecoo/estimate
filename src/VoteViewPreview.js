@@ -28,9 +28,8 @@ class VoteViewPreview extends React.Component {
 		}
 		return (
 			<div className="VoteViewPreview">
-				<button onClick={() => { this.props.onClosingPreview(null) }}>Close Preview</button><br></br>
 				Preview Story<br></br>
-				<textarea type="text" placeholder="Select story to preview it" defaultValue={this.props.previewStory.summary} style={{ resize: "none", }} />
+				<textarea type="text" placeholder="Select story to preview it" defaultValue={this.props.previewStory.summary} style={{ resize: "none", }} readOnly={this.props.previewStory.tense === -1 ? false : true} />
 				{contentDependingOnStoryTense}
 			</div>
 		);

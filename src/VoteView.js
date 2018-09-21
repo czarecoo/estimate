@@ -26,7 +26,12 @@ class VoteView extends React.Component {
 		this.setState({ [event.target.name]: event.target.value });
 	}
 	handlePreviewChange(story) {
-		this.setState({ previewStory: story });
+		if (this.state.previewStory !== story) {
+			this.setState({ previewStory: story });
+		} else {
+			this.setState({ previewStory: null });
+		}
+
 	}
 	sumStories() {
 		return (this.state.futureStories.length + this.state.currentStory.length + this.state.pastStories.length);
@@ -50,7 +55,7 @@ class VoteView extends React.Component {
 				List of past stories:<br></br>
 				<VoteViewStoriesList storyList={this.state.pastStories} onSelectingStory={this.handlePreviewChange.bind(this)} />
 
-				<VoteViewPreview previewStory={this.state.previewStory} onClosingPreview={this.handlePreviewChange.bind(this)} />
+				<VoteViewPreview previewStory={this.state.previewStory} />
 			</div>
 		);
 	}

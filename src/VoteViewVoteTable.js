@@ -30,7 +30,6 @@ class VoteViewVoteTable extends React.Component {
 						</tr>
 					</tbody>
 				</table>
-				<br></br>
 				Final score: {this.props.story.finalScore}
 			</div>
 		);

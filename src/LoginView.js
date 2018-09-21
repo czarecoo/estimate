@@ -63,7 +63,7 @@ class LoginView extends React.Component {
 		return (
 			<div className="LoginView">
 				<p>
-					Enter your login:<br></br>
+					Enter your User Name:<br></br>
 					<input className="loginText" name="login" type="text" value={this.state.login} onChange={this.handleChange.bind(this)} />
 				</p>
 				<p>
