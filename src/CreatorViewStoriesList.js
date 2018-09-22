@@ -1,7 +1,7 @@
 import React from 'react';
-import './css/VoteViewStoriesList.css';
+import './css/CreatorViewStoriesList.css';
 
-class VoteViewStoriesList extends React.Component {
+class CreatorViewStoriesList extends React.Component {
 	render() {
 		const stories = this.props.storyList.map((story, i) => {
 			return (
@@ -9,7 +9,7 @@ class VoteViewStoriesList extends React.Component {
 			)
 		});
 		return (
-			<div className="VoteViewStoriesList">
+			<div className="StoriesList">
 				<table>
 					<tbody>
 						<tr>
@@ -22,4 +22,4 @@ class VoteViewStoriesList extends React.Component {
 		);
 	}
 }
-export default VoteViewStoriesList
+export default CreatorViewStoriesList

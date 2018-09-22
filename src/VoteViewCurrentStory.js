@@ -1,6 +1,6 @@
 import React from 'react';
 import './css/VoteViewCurrentStory.css';
-import VoteViewVoteTable from './VoteViewVoteTable'
+import VoteTable from './VoteTable'
 
 class VoteViewCurrentStory extends React.Component {
 	render() {
@@ -24,7 +24,7 @@ class VoteViewCurrentStory extends React.Component {
 					</tbody>
 				</table>
 				Current Votes:
-				< VoteViewVoteTable story={this.props.userStory} />
+				< VoteTable story={this.props.userStory} />
 			</div>
 		);
 	}

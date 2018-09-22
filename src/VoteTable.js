@@ -1,7 +1,7 @@
 import React from 'react';
-import './css/VoteViewVoteTable.css';
+import './css/VoteTable.css';
 
-class VoteViewVoteTable extends React.Component {
+class VoteTable extends React.Component {
 	render() {
 		if (this.props.story === undefined || this.props.story.users === undefined || this.props.story.votes === undefined) {
 			return null;
@@ -16,6 +16,10 @@ class VoteViewVoteTable extends React.Component {
 				<td key={i}>{vote === 0 ? '?' : vote}</td>
 			)
 		});
+		var finalScore = null;
+		if (this.props.story.finalScore !== undefined && this.props.story.finalScore !== null && this.props.story.finalScore !== 0) {
+			finalScore = (<div>Final score: {this.props.story.finalScore}</div>);
+		}
 		return (
 			<div>
 				<table className="VoteTable">
@@ -30,9 +34,9 @@ class VoteViewVoteTable extends React.Component {
 						</tr>
 					</tbody>
 				</table>
-				Final score: {this.props.story.finalScore}
+				{finalScore}
 			</div>
 		);
 	}
 }
-export default VoteViewVoteTable
+export default VoteTable

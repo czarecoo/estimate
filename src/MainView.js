@@ -1,6 +1,7 @@
 import React from 'react';
 import './css/MainView.css';
 import VoteView from './VoteView'
+import CreatorView from './CreatorView'
 import LoginView from './LoginView'
 import openSocket from 'socket.io-client';
 const socket = openSocket('http://localhost:8080');
@@ -22,6 +23,7 @@ class MainView extends React.Component {
 			return (
 				<div className="MainView">
 					<VoteView socket={socket} />
+					<CreatorView socket={socket} />
 				</div>
 			);
 		} else {
