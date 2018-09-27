@@ -5,7 +5,7 @@ class LoginView extends React.Component {
 	constructor(props) {
 		super(props);
 		this.socket = this.props.socket;
-		this.state = { isJoinSession: false, isSessionWithJira: false, login: '', sessionId: '', jiraUrl: 'estimatetest.atlassian.net', jiraLogin: 'czarecoo@o2.pl', jiraPassword: 'asdqwe123', jiraProject: 'ES' };
+		this.state = { isJoinSession: false, isSessionWithJira: false, login: '', sessionId: '', jiraUrl: 'https://adamjestem.atlassian.net', jiraLogin: 'adam96stan@gmail.com', jiraPassword: 'Cedynia97@', jiraProject: 'ToTylkoDoPobrania' };
 	}
 
 	isJoinChange() {
