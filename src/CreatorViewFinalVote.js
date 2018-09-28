@@ -1,5 +1,6 @@
 import React from 'react';
 import './css/CreatorViewFinalVote.css';
+import SocketManager from './SocketManager';
 
 class CreatorViewFinalVote extends React.Component {
 	constructor(props) {

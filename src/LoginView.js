@@ -1,5 +1,6 @@
 import React from 'react';
 import './css/LoginView.css';
+import SocketManager from './SocketManager';
 
 class LoginView extends React.Component {
 	constructor(props) {
@@ -29,7 +30,6 @@ class LoginView extends React.Component {
 	}
 
 	tryToConnect() {
-		//this.socket.emit('connect123');
 		this.props.attemptConnection();
 	}
 
