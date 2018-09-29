@@ -1,11 +1,8 @@
 import React from 'react';
 import './css/VoteViewUsers.css';
+import SocketManager from './SocketManager';
 
 class VoteViewUsers extends React.Component {
-	constructor(props) {
-		super(props);
-		this.socket = this.props.socket;
-	}
 	render() {
 		const users = this.props.userList.map((user, i) => {
 			return (
@@ -31,17 +28,11 @@ class VoteViewUsers extends React.Component {
 }
 
 class User extends React.Component {
-	constructor(props) {
-		super(props);
-		this.kick = this.kick.bind(this);
+	kick(user) {
+		SocketManager.kick(user);
 	}
-	kick() {
-		console.log(this.props.user);
-		this.props.socket.emit("kick", this.socketid, "kicking", this.props.sessionid);
-	}
-	passCreator() {
-		console.log(this.props.user);
-		this.props.socket.emit("passCreator", this.socketid, "kicking", this.props.sessionid);
+	passCreator(user) {
+		SocketManager.passCreator(user);
 	}
 	render() {
 		var activity = (<img src="user-inactive.png" alt="" />);
@@ -53,7 +44,7 @@ class User extends React.Component {
 			creatorImg = (<td className="creatorImg"><img src="creator.png" alt="" /></td>);
 		} else {
 			if (this.props.isSuperUser) {
-				creatorImg = (<td className="chat"><button onClick={this.passCreator.bind(this)}>Pass creator</button></td>);
+				creatorImg = (<td className="chat"><button onClick={this.passCreator.bind(this, this.props.user)}>Pass creator</button></td>);
 			}
 		}
 		if (this.props.isSuperUser) {
@@ -61,7 +52,7 @@ class User extends React.Component {
 				<tr className="chat">
 					<td className="chat"><b>{this.props.name}</b></td>
 					<td>{activity}</td>
-					<td className="chat"><button onClick={this.kick.bind(this)}>Kick</button></td>
+					<td className="chat"><button onClick={this.kick.bind(this, this.props.user)}>Kick</button></td>
 					{creatorImg}
 				</tr>
 			);

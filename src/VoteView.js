@@ -3,27 +3,21 @@ import './css/VoteView.css';
 import VoteViewLoginInfo from './VoteViewLoginInfo'
 import VoteViewCurrentStory from './VoteViewCurrentStory'
 import VoteViewUsers from './VoteViewUsers'
+import SocketManager from './SocketManager';
 
 class VoteView extends React.Component {
-	constructor(props) {
-		super(props);
-		this.socket = this.props.socket;
-		this.state = {
-			userStory: "dasd",
-			userList: [{ name: "Czareg", isActive: false, isCreator: true }, { name: "Wojteg", isActive: true, isCreator: false }],
-		}
-	}
 	refresh() {
+		SocketManager.closeSession();
 		window.location.reload()
 	}
 	render() {
 		return (
 			<div className="VoteView">
-				<VoteViewLoginInfo sessionId={this.props.sessionId} socketId={this.socket.id} myName={this.props.login} />
+				<VoteViewLoginInfo sessionId={this.props.data.sessionId} myName={this.props.data.login} />
 				<button onClick={this.refresh.bind(this)}>Close session</button><br></br>
 
-				<VoteViewCurrentStory socket={this.socket} userStory={this.state.userStory} />
-				<VoteViewUsers socket={this.socket} userList={this.state.userList} isSuperUser={true} />
+				<VoteViewCurrentStory userStory={this.props.data.currentStory[0].summary} />
+				<VoteViewUsers userList={this.props.data.userList} isSuperUser={this.props.data.isSuperUser} />
 			</div>
 		);
 	}

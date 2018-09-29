@@ -5,13 +5,19 @@ import SocketManager from './SocketManager';
 class CreatorViewFinalVote extends React.Component {
 	constructor(props) {
 		super(props);
-		this.socket = this.props.socket;
 		this.state = {
 			finalScore: 0
 		}
 	}
 	setFinalScore(event) {
 		this.setState({ finalScore: event.target.value });
+	}
+	finishStory(story) {
+		SocketManager.finishStory(story, this.state.finalScore);
+		this.props.onFinishStory();
+	}
+	revote(story) {
+		SocketManager.revote(story);
 	}
 	render() {
 		return (
@@ -31,8 +37,8 @@ class CreatorViewFinalVote extends React.Component {
 					</tbody>
 				</table>
 				Final score: {this.state.finalScore}<br></br>
-				<button onClick={() => this.props.onFinishStory()}>Finish story</button><br></br>
-				<button>Revote</button><br></br>
+				<button onClick={this.finishStory.bind(this, this.props.userStory)}>Finish story</button><br></br>
+				<button onClick={this.revote.bind(this, this.props.userStory)}>Revote</button><br></br>
 
 			</div>
 		);

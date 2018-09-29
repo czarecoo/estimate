@@ -5,7 +5,6 @@ import SocketManager from './SocketManager';
 class LoginView extends React.Component {
 	constructor(props) {
 		super(props);
-		this.socket = this.props.socket;
 		this.state = { isJoinSession: false, isSessionWithJira: false, login: '', sessionId: '', jiraUrl: 'https://adamjestem.atlassian.net', jiraLogin: 'adam96stan@gmail.com', jiraPassword: 'Cedynia97@', jiraProject: 'ToTylkoDoPobrania' };
 	}
 
@@ -30,7 +29,15 @@ class LoginView extends React.Component {
 	}
 
 	tryToConnect() {
-		this.props.attemptConnection();
+		if (this.state.isJoinSession) {
+			SocketManager.joinSession(this.state.login, this.state.sessionId);
+		} else {
+			if (this.state.isSessionWithJira) {
+				SocketManager.createSessionWithJira(this.state.login, this.state.jiraLogin, this.state.jiraPassword, this.state.jiraUrl, this.state.jiraProject);
+			} else {
+				SocketManager.createSession(this.state.login);
+			}
+		}
 	}
 
 	render() {
