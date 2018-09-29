@@ -17,8 +17,9 @@ class CreatorViewStoriesList extends React.Component {
 				<table>
 					<tbody>
 						<tr>
-							<th>{stories}</th>
-							{this.props.canAdd === true ? <th><button onClick={this.emptyStory.bind(this)}>+</button></th> : null}
+							<th>
+								{stories}{this.props.canAdd === true ? <button onClick={this.emptyStory.bind(this)}>+</button> : null}
+							</th>
 						</tr>
 					</tbody>
 				</table>

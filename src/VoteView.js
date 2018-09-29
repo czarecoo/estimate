@@ -8,7 +8,7 @@ class VoteView extends React.Component {
 	render() {
 		return (
 			<div className="VoteView">
-				<VoteViewLoginInfo sessionId={this.props.data.sessionId} myName={this.props.data.login} userId={this.props.data.userId} />
+				<VoteViewLoginInfo data={this.props.data} />
 				<div className="row">
 					<VoteViewCurrentStory userStory={this.props.data.currentStory[0]} />
 					<VoteViewUsers userList={this.props.data.userList} isSuperUser={this.props.data.isSuperUser} />
