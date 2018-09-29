@@ -1,6 +1,5 @@
 import React from 'react';
 import './css/VoteViewCurrentStory.css';
-import VoteTable from './VoteTable';
 import SocketManager from './SocketManager';
 
 class VoteViewCurrentStory extends React.Component {
@@ -12,9 +11,9 @@ class VoteViewCurrentStory extends React.Component {
 	}
 	render() {
 		return (
-			<div className="VoteViewCurrentStory">
-				Current Story<br></br>
-				<textarea className="" name="userStory" type="text" placeholder="" value={this.props.userStory} style={{ resize: "none", }} readOnly={true} />
+			<div className="CurrentStory col-xs-12 col-md-8 col-lg-8 col-xl-8">
+				Current Story:<br></br>
+				<textarea className="" name="userStory" type="text" placeholder="" value={this.props.userStory.summary} style={{ resize: "none", }} readOnly={true} />
 				<table className="buttons">
 					<tbody>
 						<tr>
@@ -30,8 +29,6 @@ class VoteViewCurrentStory extends React.Component {
 						</tr>
 					</tbody>
 				</table>
-				Current Votes:
-				< VoteTable story={this.props.userStory} />
 			</div>
 		);
 	}

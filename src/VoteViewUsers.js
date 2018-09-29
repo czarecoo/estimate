@@ -12,7 +12,8 @@ class VoteViewUsers extends React.Component {
 
 		if (this.props.userList.length > 0) {
 			return (
-				<div className="VoteViewUsers">
+				<div className="Users col-xs-12 col-md-4 col-lg-4 col-xl-4">
+					Users:
 					<table className="chat">
 						<tbody>
 							{users}

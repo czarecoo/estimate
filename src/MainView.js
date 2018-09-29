@@ -16,6 +16,7 @@ class MainView extends React.Component {
 	}
 	handleUpdate(dataFromServer) {
 		this.setState({
+			isLoggedIn: true,
 			data: dataFromServer
 		});
 	}
@@ -29,14 +30,24 @@ class MainView extends React.Component {
 		this.setState({
 			data: {
 				login: "czareg",
+				userId: 1234,
 				sessionId: 134134,
 				isSuperUser: true,
-				futureStories: [{ tense: -1, issueId: "I-91919", summary: "blellbelleblelbblellbelleblelb", shortSummary: "blellbelleblelb..." }],
 				currentStory: [{ tense: 0, issueId: "I-11119", summary: "AsdasdasdasdasdddbAsdasdasdasdasdddb", shortSummary: "Asdasdasdasdasdddb...", users: [{ name: "MICHAU" }, { name: "Robak" }], votes: [3, 5], finalScore: 0 }],
-				pastStories: [{ tense: 1, issueId: "I-42319", summary: "HelpHelpHelpHelpHelpHelpHelpHelpHelp", shortSummary: "Help...", users: [{ name: "Czareg" }, { name: "Bozena" }], votes: [0, 5], finalScore: 1 }],
 				userList: [{ name: "Czareg", isActive: false, isCreator: true }, { name: "Wojteg", isActive: true, isCreator: false }],
+				futureStories: [{ tense: -1, issueId: "I-91919", summary: "blellbelleblelbblellbelleblelb", shortSummary: "blellbelleblelb..." }],
+				pastStories: [{ tense: 1, issueId: "I-42319", summary: "HelpHelpHelpHelpHelpHelpHelpHelpHelp", shortSummary: "Help...", users: [{ name: "Czareg" }, { name: "Bozena" }], votes: [0, 5], finalScore: 1 }],
+				/*
+				data: {
+					login: "czareg",
+					userId: 1234,
+					sessionId: 134134,
+					isSuperUser: false,
+					currentStory: [{ summary: "AsdasdasdasdasdddbAsdasdasdasdasdddb"}],
+					userList: [{ name: "Czareg", isActive: false, isCreator: true }, { name: "Wojteg", isActive: true, isCreator: false }],
+				}
+				*/
 			}
-			//data: null
 		});
 		this.setState((prevState) => ({
 			isLoggedIn: !prevState.isLoggedIn
@@ -45,12 +56,28 @@ class MainView extends React.Component {
 
 	render() {
 		if (this.state.isLoggedIn) {
-			return (
-				<div className="MainView">
-					<VoteView data={this.state.data} />
-					<CreatorView data={this.state.data} />
-				</div>
-			);
+			if (this.state.data != null) {
+				if (this.state.data.isSuperUser) {
+					return (
+						<div className="MainView">
+							<VoteView data={this.state.data} />
+							<CreatorView data={this.state.data} />
+						</div>
+					);
+				} else {
+					return (
+						<div className="MainView">
+							<VoteView data={this.state.data} />
+						</div>
+					);
+				}
+			} else {
+				return (
+					<div className="MainView">
+						Something went wrong...
+					</div>
+				);
+			}
 		} else {
 			return (
 				<div className="MainView">

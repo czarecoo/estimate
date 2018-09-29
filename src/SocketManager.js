@@ -41,6 +41,9 @@ class SocketManager extends React.Component {
 	static startStory(story) {
 		this.socket.emit('startStoryRequest', story);
 	}
+	static createStory(summary, issueId) {
+		this.socket.emit('createStoryRequest', summary, issueId);
+	}
 	static finishStory(story, finalScore) {
 		this.socket.emit('finishStoryRequest', story, finalScore);
 	}

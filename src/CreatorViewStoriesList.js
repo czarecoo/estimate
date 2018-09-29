@@ -2,8 +2,12 @@ import React from 'react';
 import './css/CreatorViewStoriesList.css';
 
 class CreatorViewStoriesList extends React.Component {
+	emptyStory() {
+		this.props.onSelectingStory({ tense: -2 });
+	}
+
 	render() {
-		const stories = this.props.storyList.map((story, i) => {
+		var stories = this.props.storyList.map((story, i) => {
 			return (
 				<button key={i} onClick={() => { this.props.onSelectingStory(story) }}>{story.issueId}<br></br>{story.shortSummary}</button>
 			)
@@ -14,10 +18,10 @@ class CreatorViewStoriesList extends React.Component {
 					<tbody>
 						<tr>
 							<th>{stories}</th>
+							{this.props.canAdd === true ? <th><button onClick={this.emptyStory.bind(this)}>+</button></th> : null}
 						</tr>
 					</tbody>
 				</table>
-				<br></br>
 			</div>
 		);
 	}
