@@ -3,7 +3,7 @@ import './css/VoteTable.css';
 
 class VoteTable extends React.Component {
 	render() {
-		if (this.props.story === undefined || this.props.story.users === undefined || this.props.story.votes === undefined) {
+		if (this.props.story === null || this.props.story === undefined || this.props.story.users === undefined || this.props.story.votes === undefined) {
 			return null;
 		}
 		const users = this.props.story.users.map((user, i) => {

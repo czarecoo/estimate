@@ -15,10 +15,12 @@ class CreatorView extends React.Component {
 		}
 	}
 	handlePreviewChange(story) {
+		this.setState({ isFinishingStory: false });
 		if (this.state.previewStory !== story) {
 			this.setState({ previewStory: story });
 		} else {
 			this.setState({ previewStory: null });
+
 		}
 	}
 	handleFinishStory() {
