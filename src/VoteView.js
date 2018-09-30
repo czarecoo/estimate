@@ -10,7 +10,7 @@ class VoteView extends React.Component {
 			<div className="VoteView">
 				<VoteViewLoginInfo data={this.props.data} />
 				<div className="row">
-					<VoteViewCurrentStory userStory={this.props.data.currentStory[0]} />
+					<VoteViewCurrentStory userStory={this.props.data.currentStory[0] !== undefined ? this.props.data.currentStory[0].summary : ""} />
 					<VoteViewUsers userList={this.props.data.userList} isSuperUser={this.props.data.isSuperUser} />
 				</div>
 			</div>

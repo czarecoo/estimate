@@ -21,10 +21,10 @@ class MainView extends React.Component {
 		});
 	}
 	componentDidMount() {
-		SocketManager.addListeners(this.handleUpdate);
+		SocketManager.addListeners(this.handleUpdate.bind(this));
 	}
 	componentWillUnmount() {
-		SocketManager.removeListeners(this.handleUpdate);
+		SocketManager.removeListeners(this.handleUpdate.bind(this));
 	}
 	switchViews() {
 		this.setState({

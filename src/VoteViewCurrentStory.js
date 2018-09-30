@@ -13,7 +13,7 @@ class VoteViewCurrentStory extends React.Component {
 		return (
 			<div className="CurrentStory col-xs-12 col-md-8 col-lg-8 col-xl-8">
 				Current Story:<br></br>
-				<textarea className="" name="userStory" type="text" placeholder="" value={this.props.userStory.summary} style={{ resize: "none", }} readOnly={true} />
+				<textarea className="" name="userStory" type="text" placeholder="" value={this.props.userStory} style={{ resize: "none", }} readOnly={true} />
 				<table className="buttons">
 					<tbody>
 						<tr>

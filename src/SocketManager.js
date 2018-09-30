@@ -11,10 +11,13 @@ class SocketManager extends React.Component {
 	static addListeners(handleUpdate) {
 		this.socket.on('updateResponse', (data) => handleUpdate(data));
 		this.socket.on('activityRequest', () => this.socket.emit('activityResponse'));
+		this.socket.on('sessionClosingCommand', () => window.location.reload());
+
 	}
 	static removeListeners(handleUpdate) {
 		this.socket.removeListener('updateResponse', (data) => handleUpdate(data));
 		this.socket.removeListener('activityRequest', () => this.socket.emit('activityResponse'));
+		this.socket.removeListener('sessionClosingCommand', () => window.location.reload());
 	}
 	static createSession(userName) {
 		this.socket.emit('createSessionRequest', userName);

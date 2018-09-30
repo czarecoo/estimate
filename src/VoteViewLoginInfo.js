@@ -5,11 +5,11 @@ import SocketManager from './SocketManager';
 class VoteViewLoginInfo extends React.Component {
 	refresh() {
 		SocketManager.closeSession();
-		window.location.reload()
 	}
 	render() {
 		return (
 			<div className="VoteViewLoginInfo">
+				<button onClick={() => window.location.reload()}>Close without emits (for testing only) </button>
 				SessionID: <b>{this.props.data.sessionId}</b>{this.props.data.isSuperUser ? <button onClick={this.refresh.bind(this)}>Close session</button> : null}<br></br>
 				My name: <b>{this.props.data.login}</b><br></br>
 				My name: <b>{this.props.data.userId}</b><br></br>
