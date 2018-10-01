@@ -5,7 +5,6 @@ import CreatorViewPreview from './CreatorViewPreview'
 import VoteTable from './VoteTable'
 import CreatorViewFinalVote from './CreatorViewFinalVote'
 
-
 class CreatorView extends React.Component {
 	constructor(props) {
 		super(props);
@@ -16,6 +15,9 @@ class CreatorView extends React.Component {
 	}
 	handlePreviewChange(story) {
 		this.setState({ isFinishingStory: false });
+		if (story !== null && story.tense === -2) {
+			this.setState({ previewStory: story });
+		}
 		if (story !== null && (this.state.previewStory === null || this.state.previewStory.issueId !== story.issueId)) {
 			this.setState({ previewStory: story });
 		} else {
@@ -27,7 +29,33 @@ class CreatorView extends React.Component {
 			isFinishingStory: !prevState.isFinishingStory
 		}));
 	}
+	setActualPreviewStory() {
+		if (this.state.previewStory != null) {
+			if (this.state.previewStory.tense === -2) {
+				return this.state.previewStory;
+			}
+			var i;
+			for (i = 0; i < this.props.data.futureStories.length; i++) {
+				if (this.props.data.futureStories[i].issueId === this.state.previewStory.issueId) {
+					return this.props.data.futureStories[i];
+				}
+			}
+			for (i = 0; i < this.props.data.currentStory.length; i++) {
+				if (this.props.data.currentStory[i].issueId === this.state.previewStory.issueId) {
+					return this.props.data.currentStory[i];
+				}
+			}
+			for (i = 0; i < this.props.data.pastStories.length; i++) {
+				if (this.props.data.pastStories[i].issueId === this.state.previewStory.issueId) {
+					return this.props.data.pastStories[i];
+				}
+			}
+		} else {
+			return null;
+		}
+	}
 	render() {
+		var actualPreview = this.setActualPreviewStory();
 		if (this.state.isFinishingStory) {
 			return (
 				<div className="CreatorView row">
@@ -41,8 +69,8 @@ class CreatorView extends React.Component {
 					</div>
 					<div className="col-xs-12 col-md-8 col-lg-8 col-xl-8">
 						Finish Story <button onClick={this.handleFinishStory.bind(this)}>X</button><br></br>
-						<VoteTable story={this.state.previewStory} />
-						<CreatorViewFinalVote userStory={this.state.previewStory} onFinishStory={this.handleFinishStory.bind(this)} closePreview={this.handlePreviewChange.bind(this)} />
+						<VoteTable story={actualPreview} isFinal={false} />
+						<CreatorViewFinalVote userStory={actualPreview} onFinishStory={this.handleFinishStory.bind(this)} closePreview={this.handlePreviewChange.bind(this)} />
 					</div>
 				</div>
 			);
@@ -58,7 +86,7 @@ class CreatorView extends React.Component {
 						<CreatorViewStoriesList storyList={this.props.data.pastStories} onSelectingStory={this.handlePreviewChange.bind(this)} canAdd={false} />
 					</div>
 					<div className="col-xs-12 col-md-8 col-lg-8 col-xl-8">
-						<CreatorViewPreview previewStory={this.state.previewStory} data={this.props.data} onFinishingStory={this.handleFinishStory.bind(this)} closePreview={this.handlePreviewChange.bind(this)} />
+						<CreatorViewPreview previewStory={actualPreview} data={this.props.data} onFinishingStory={this.handleFinishStory.bind(this)} closePreview={this.handlePreviewChange.bind(this)} />
 					</div>
 				</div>
 			);

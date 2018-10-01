@@ -14,11 +14,11 @@ class CreatorViewFinalVote extends React.Component {
 	}
 	finishStory(story) {
 		SocketManager.finishStory(story, this.state.finalScore);
-		this.props.closePreview(null);
+		this.props.onFinishStory();
 	}
 	revote(story) {
 		SocketManager.revote(story);
-		this.props.closePreview(null);
+		//this.props.closePreview(null);
 	}
 	render() {
 		return (

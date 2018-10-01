@@ -18,7 +18,12 @@ class VoteTable extends React.Component {
 		});
 		var finalScore = null;
 		if (this.props.story.finalScore !== undefined && this.props.story.finalScore !== null && this.props.story.finalScore !== 0) {
-			finalScore = (<div>Final score: {this.props.story.finalScore}</div>);
+			if (this.props.isFinal) {
+				finalScore = (<div>Final score: {this.props.story.finalScore}</div>);
+			} else {
+				finalScore = (<div>Previous final score: {this.props.story.finalScore}</div>);
+			}
+
 		}
 		return (
 			<div>
