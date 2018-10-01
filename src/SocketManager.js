@@ -12,12 +12,13 @@ class SocketManager extends React.Component {
 		this.socket.on('updateResponse', (data) => handleUpdate(data));
 		this.socket.on('activityRequest', () => this.socket.emit('activityResponse'));
 		this.socket.on('sessionClosingCommand', () => window.location.reload());
-
+		this.socket.on('coffeeCommand', (userName) => alert(userName + " asked for coffee break."));
 	}
 	static removeListeners(handleUpdate) {
 		this.socket.removeListener('updateResponse', (data) => handleUpdate(data));
 		this.socket.removeListener('activityRequest', () => this.socket.emit('activityResponse'));
 		this.socket.removeListener('sessionClosingCommand', () => window.location.reload());
+		this.socket.removeListener('coffeeCommand', (userName) => alert(userName + " asked for coffee break."));
 	}
 	static createSession(userName) {
 		this.socket.emit('createSessionRequest', userName);
@@ -35,6 +36,7 @@ class SocketManager extends React.Component {
 		this.socket.emit('voteRequest', vote);
 	}
 	static coffee() {
+		alert("You asked for coffee break.");
 		this.socket.emit('coffeeRequest');
 	}
 	static kick(user) {
