@@ -35,11 +35,29 @@ class CreatorViewPreview extends React.Component {
 		SocketManager.revote(story);
 		this.props.closePreview(null);
 	}
-
+	setActualPreviewStory() {
+		var i;
+		for (i = 0; i < this.props.data.futureStories.length; i++) {
+			if (this.props.data.futureStories[i].issueId === this.props.previewStory.issueId) {
+				return this.props.data.futureStories[i];
+			}
+		}
+		for (i = 0; i < this.props.data.currentStory.length; i++) {
+			if (this.props.data.currentStory[i].issueId === this.props.previewStory.issueId) {
+				return this.props.data.currentStory[i];
+			}
+		}
+		for (i = 0; i < this.props.data.pastStories.length; i++) {
+			if (this.props.data.pastStories[i].issueId === this.props.previewStory.issueId) {
+				return this.props.data.pastStories[i];
+			}
+		}
+	}
 	render() {
 		if (this.props.previewStory === null) {
 			return null;
 		}
+		var actualPreview = this.setActualPreviewStory();
 		var contentDependingOnStoryTense;
 		switch (this.props.previewStory.tense) {
 			case -2: {
@@ -57,8 +75,8 @@ class CreatorViewPreview extends React.Component {
 				contentDependingOnStoryTense = (
 					<div>
 						Preview Story<button onClick={() => this.props.closePreview(null)}>X</button><br></br>
-						<textarea type="text" value={this.props.previewStory.summary} style={{ resize: "none", }} readOnly={true} /><br></br>
-						<button onClick={this.startStory.bind(this, this.props.previewStory)}>Start story</button>
+						<textarea type="text" value={actualPreview.summary} style={{ resize: "none", }} readOnly={true} /><br></br>
+						<button onClick={this.startStory.bind(this, actualPreview)}>Start story</button>
 					</div>
 				)
 				break;
@@ -67,11 +85,11 @@ class CreatorViewPreview extends React.Component {
 				contentDependingOnStoryTense = (
 					<div>
 						Preview Story<button onClick={() => this.props.closePreview(null)}>X</button><br></br>
-						<textarea type="text" value={this.props.previewStory.summary} style={{ resize: "none", }} readOnly={true} /><br></br>
+						<textarea type="text" value={actualPreview.summary} style={{ resize: "none", }} readOnly={true} /><br></br>
 						<button onClick={() => this.props.onFinishingStory()}>Finish story</button>
-						<button onClick={this.markAsFuture.bind(this, this.props.previewStory)}>Mark as Future</button><br></br>
+						<button onClick={this.markAsFuture.bind(this, actualPreview)}>Mark as Future</button><br></br>
 						Current Votes:<br></br>
-						<VoteTable story={this.props.previewStory} />
+						<VoteTable story={actualPreview} />
 					</div>
 				)
 				break;
@@ -80,11 +98,11 @@ class CreatorViewPreview extends React.Component {
 				contentDependingOnStoryTense = (
 					<div>
 						Preview Story<button onClick={() => this.props.closePreview(null)}>X</button><br></br>
-						<textarea type="text" value={this.props.previewStory.summary} style={{ resize: "none", }} readOnly={true} /><br></br>
-						<button onClick={this.revote.bind(this, this.props.previewStory)}>Revote</button>
-						<button onClick={this.markAsFuture.bind(this, this.props.previewStory)}>Mark as future</button><br></br>
+						<textarea type="text" value={actualPreview.summary} style={{ resize: "none", }} readOnly={true} /><br></br>
+						<button onClick={this.revote.bind(this, actualPreview)}>Revote</button>
+						<button onClick={this.markAsFuture.bind(this, actualPreview)}>Mark as future</button><br></br>
 						Past Votes:<br></br>
-						<VoteTable story={this.props.previewStory} />
+						<VoteTable story={actualPreview} />
 					</div>
 				)
 				break;

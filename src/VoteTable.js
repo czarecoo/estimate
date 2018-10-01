@@ -13,7 +13,7 @@ class VoteTable extends React.Component {
 		});
 		const votes = this.props.story.votes.map((vote, i) => {
 			return (
-				<td key={i}>{vote === 0 ? '?' : vote}</td>
+				<td key={i}>{vote === '0' ? '?' : vote}</td>
 			)
 		});
 		var finalScore = null;

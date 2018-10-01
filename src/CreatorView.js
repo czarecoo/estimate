@@ -16,11 +16,10 @@ class CreatorView extends React.Component {
 	}
 	handlePreviewChange(story) {
 		this.setState({ isFinishingStory: false });
-		if (this.state.previewStory !== story) {
+		if (story !== null && (this.state.previewStory === null || this.state.previewStory.issueId !== story.issueId)) {
 			this.setState({ previewStory: story });
 		} else {
 			this.setState({ previewStory: null });
-
 		}
 	}
 	handleFinishStory() {
@@ -59,7 +58,7 @@ class CreatorView extends React.Component {
 						<CreatorViewStoriesList storyList={this.props.data.pastStories} onSelectingStory={this.handlePreviewChange.bind(this)} canAdd={false} />
 					</div>
 					<div className="col-xs-12 col-md-8 col-lg-8 col-xl-8">
-						<CreatorViewPreview previewStory={this.state.previewStory} onFinishingStory={this.handleFinishStory.bind(this)} closePreview={this.handlePreviewChange.bind(this)} />
+						<CreatorViewPreview previewStory={this.state.previewStory} data={this.props.data} onFinishingStory={this.handleFinishStory.bind(this)} closePreview={this.handlePreviewChange.bind(this)} />
 					</div>
 				</div>
 			);
