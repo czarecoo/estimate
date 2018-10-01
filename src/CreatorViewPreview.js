@@ -17,7 +17,6 @@ class CreatorViewPreview extends React.Component {
 	}
 	startStory(story) {
 		SocketManager.startStory(story);
-		//this.props.closePreview(null);
 	}
 	createStory(summary, id) {
 		SocketManager.createStory(summary, id);
@@ -29,11 +28,9 @@ class CreatorViewPreview extends React.Component {
 	}
 	markAsFuture(story) {
 		SocketManager.markAsFuture(story);
-		//this.props.closePreview(null);
 	}
 	revote(story) {
 		SocketManager.revote(story);
-		//this.props.closePreview(null);
 	}
 	render() {
 		if (this.props.previewStory === null) {
