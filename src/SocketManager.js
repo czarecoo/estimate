@@ -34,8 +34,8 @@ class SocketManager extends React.Component {
 	static createSession(userName) {
 		this.socket.emit('createSessionRequest', userName);
 	}
-	static createSessionWithJira(userName, jiraLogin, jiraPassword, jiraUrl, jiraProject) {
-		this.socket.emit('createSessionWithJiraRequest', userName, jiraLogin, jiraPassword, jiraUrl, jiraProject);
+	static createSessionWithJira(userName, jiraLogin, jiraPassword, jiraUrl, jiraProject, jiraProjectKey) {
+		this.socket.emit('createSessionWithJiraRequest', userName, jiraLogin, jiraPassword, jiraUrl, jiraProject, jiraProjectKey);
 	}
 	static joinSession(userName, serverId) {
 		this.socket.emit('joinSessionRequest', userName, serverId);
