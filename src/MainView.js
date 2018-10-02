@@ -13,7 +13,10 @@ const socket = openSocket('http://localhost:8080');
 class MainView extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { isLoggedIn: false, data: null, cookies: this.props.cookies };
+		this.state = {
+			isLoggedIn: false, data: null, cookies: this.props.cookies,
+			scores: [1, 2, 3, 5, 8, 13, 21]
+		};
 		SocketManager.setSocket(socket);
 	}
 	static propTypes = {
@@ -50,7 +53,7 @@ class MainView extends React.Component {
 					return (
 						<div className="MainView">
 							<VoteView data={this.state.data} />
-							<CreatorView data={this.state.data} />
+							<CreatorView data={this.state.data} scores={this.state.scores} />
 						</div>
 					);
 				} else {

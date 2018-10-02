@@ -21,19 +21,24 @@ class CreatorViewFinalVote extends React.Component {
 		this.props.onFinishStory();
 	}
 	render() {
+		var buttons = this.props.scores.filter((score) => {
+			if (score >= Math.min.apply(Math, this.props.userStory.votes) && score <= Math.max.apply(Math, this.props.userStory.votes)) {
+				return true;
+			}
+			return false;
+		}).map((score, i) => {
+			return (
+				<th key={i}><button className="" ref={'a' + (i + 1)} onClick={this.setFinalScore.bind(this)} value={score}>{score}</button></th>
+			)
+		});
+		console.log(buttons);
 		return (
 			<div className="FinalVote">
 				Choose final score:<br></br>
 				<table className="buttons">
 					<tbody>
 						<tr>
-							<th><button className="" ref='a1' onClick={this.setFinalScore.bind(this)} value={1}>1</button></th>
-							<th><button className="" ref='a2' onClick={this.setFinalScore.bind(this)} value={2}>2</button></th>
-							<th><button className="" ref='a3' onClick={this.setFinalScore.bind(this)} value={3}>3</button></th>
-							<th><button className="" ref='a5' onClick={this.setFinalScore.bind(this)} value={5}>5</button></th>
-							<th><button className="" ref='a8' onClick={this.setFinalScore.bind(this)} value={8}>8</button></th>
-							<th><button className="" ref='a13' onClick={this.setFinalScore.bind(this)} value={13}>13</button></th>
-							<th><button className="" ref='a21' onClick={this.setFinalScore.bind(this)} value={21}>21</button></th>
+							{buttons}
 						</tr>
 					</tbody>
 				</table>
