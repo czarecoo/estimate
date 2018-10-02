@@ -41,7 +41,7 @@ class CreatorViewPreview extends React.Component {
 			case -2: {
 				contentDependingOnStoryTense = (
 					<div>
-						Preview Story<button onClick={() => this.props.closePreview(null)}>X</button><br></br>
+						Create new story<button onClick={() => this.props.closePreview(null)}>X</button><br></br>
 						<input name="newStoryIssueId" onChange={this.handleChange.bind(this)} placeholder="Enter issueId" value={this.state.newStoryIssueId}></input><br></br>
 						<textarea name="newStorySummary" type="text" placeholder="Enter story" onChange={this.handleChange.bind(this)} value={this.state.newStorySummary} style={{ resize: "none", }} readOnly={false} /><br></br>
 						<button onClick={this.createStory.bind(this, this.state.newStorySummary, this.state.newStoryIssueId)}>Create story</button>
@@ -52,7 +52,7 @@ class CreatorViewPreview extends React.Component {
 			case -1: {
 				contentDependingOnStoryTense = (
 					<div>
-						Preview Story<button onClick={() => this.props.closePreview(null)}>X</button><br></br>
+						Future Story<button onClick={() => this.props.closePreview(null)}>X</button><br></br>
 						<textarea type="text" value={this.props.previewStory.summary} style={{ resize: "none", }} readOnly={true} /><br></br>
 						<button onClick={this.startStory.bind(this, this.props.previewStory)}>Start story</button>
 					</div>
@@ -62,7 +62,7 @@ class CreatorViewPreview extends React.Component {
 			case 0: {
 				contentDependingOnStoryTense = (
 					<div>
-						Preview Story<button onClick={() => this.props.closePreview(null)}>X</button><br></br>
+						Current Story<button onClick={() => this.props.closePreview(null)}>X</button><br></br>
 						<textarea type="text" value={this.props.previewStory.summary} style={{ resize: "none", }} readOnly={true} /><br></br>
 						<button onClick={() => this.props.onFinishingStory()}>Finish story</button>
 						<button onClick={this.markAsFuture.bind(this, this.props.previewStory)}>Mark as Future</button><br></br>
@@ -75,7 +75,7 @@ class CreatorViewPreview extends React.Component {
 			case 1: {
 				contentDependingOnStoryTense = (
 					<div>
-						Preview Story<button onClick={() => this.props.closePreview(null)}>X</button><br></br>
+						Finished Story<button onClick={() => this.props.closePreview(null)}>X</button><br></br>
 						<textarea type="text" value={this.props.previewStory.summary} style={{ resize: "none", }} readOnly={true} /><br></br>
 						<button onClick={this.revote.bind(this, this.props.previewStory)}>Revote</button>
 						<button onClick={this.markAsFuture.bind(this, this.props.previewStory)}>Mark as future</button><br></br>

@@ -13,8 +13,10 @@ class CreatorViewFinalVote extends React.Component {
 		this.setState({ finalScore: event.target.value });
 	}
 	finishStory(story) {
-		SocketManager.finishStory(story, this.state.finalScore);
-		this.props.onFinishStory();
+		if (this.state.finalScore !== 0) {
+			SocketManager.finishStory(story, this.state.finalScore);
+			this.props.onFinishStory();
+		}
 	}
 	revote(story) {
 		SocketManager.revote(story);
@@ -31,7 +33,6 @@ class CreatorViewFinalVote extends React.Component {
 				<th key={i}><button className="" ref={'a' + (i + 1)} onClick={this.setFinalScore.bind(this)} value={score}>{score}</button></th>
 			)
 		});
-		console.log(buttons);
 		return (
 			<div className="FinalVote">
 				Choose final score:<br></br>
