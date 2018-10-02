@@ -30,7 +30,7 @@ class CreatorViewFinalVote extends React.Component {
 			return false;
 		}).map((score, i) => {
 			return (
-				<th key={i}><button className="" ref={'a' + (i + 1)} onClick={this.setFinalScore.bind(this)} value={score}>{score}</button></th>
+				<th key={i}><button className="vote-btn btn btn-md btn-primary" ref={'a' + (i + 1)} onClick={this.setFinalScore.bind(this)} value={score}>{score}</button></th>
 			)
 		});
 		return (
@@ -44,8 +44,8 @@ class CreatorViewFinalVote extends React.Component {
 					</tbody>
 				</table>
 				Final score: {this.state.finalScore}<br></br>
-				<button onClick={this.finishStory.bind(this, this.props.userStory)}>Finish story</button><br></br>
-				<button onClick={this.revote.bind(this, this.props.userStory)}>Revote</button><br></br>
+				<button className="btn btn-md btn-primary btn-transparent" onClick={this.finishStory.bind(this, this.props.userStory)}><img className="image" src="finish.png" alt="submit" /><br></br>Finish story</button><br></br>
+				<button className="btn btn-md btn-primary btn-transparent" onClick={this.revote.bind(this, this.props.userStory)}><img className="image" src="FinalRevote.png" alt="submit" /><br></br>Revote</button><br></br>
 
 			</div>
 		);

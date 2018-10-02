@@ -1,5 +1,50 @@
 body {
+  background: url('../img/background.png') no-repeat center center fixed; 
+  background-size: cover;
+  background-color: #000000;
   margin: 0;
   padding: 0;
+  color: white;
   font-family: sans-serif;
+}
+
+.mainImage {
+	width: 50%;
+	height: 20%;
+	min-width: 550px;
+	min-height: 150px; 
+}
+
+.btn-transparent:hover{
+	background-color: #111111;
+}
+
+.btn-transparent{
+	background-color: transparent;
+	border: none;
+}
+
+.vote-btn{
+	background-color: #212121;
+	border: none;
+}
+
+.vote-btn:hover{
+	background-color: #111111;
+}
+
+.vote-btn:active{
+	background-color: #111111;
+}
+
+.vote-btn:focus{
+	background-color: #111111;
+}
+
+input{
+	border-radius: 5px;	
+}
+
+textarea{
+	border-radius: 5px;	
 }

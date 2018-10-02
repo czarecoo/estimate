@@ -1,2 +1,18 @@
 .CurrentStory{
 }
+
+img.coffee{
+    height: 18px;  
+    width: 18px;
+	margin: 0px;
+	padding: 0px;
+}
+
+
+.storyWidth{
+	width: 65%;
+}
+
+.btn-width{
+	width: 100%;
+}

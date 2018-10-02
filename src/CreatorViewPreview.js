@@ -41,10 +41,10 @@ class CreatorViewPreview extends React.Component {
 			case -2: {
 				contentDependingOnStoryTense = (
 					<div>
-						Create new story<button onClick={() => this.props.closePreview(null)}>X</button><br></br>
-						<input name="newStoryIssueId" onChange={this.handleChange.bind(this)} placeholder="Enter issueId" value={this.state.newStoryIssueId}></input><br></br>
-						<textarea name="newStorySummary" type="text" placeholder="Enter story" onChange={this.handleChange.bind(this)} value={this.state.newStorySummary} style={{ resize: "none", }} readOnly={false} /><br></br>
-						<button onClick={this.createStory.bind(this, this.state.newStorySummary, this.state.newStoryIssueId)}>Create story</button>
+						Create new story<button className="vote-btn btn btn-md btn-primary btn-right" onClick={() => this.props.closePreview(null)}>X</button><br></br>
+						<input name="newStoryIssueId" className="inputWidth" onChange={this.handleChange.bind(this)} placeholder="Enter issueId" value={this.state.newStoryIssueId}></input><br></br>
+						<textarea name="newStorySummary" className="inputWidth" type="text" placeholder="Enter story" onChange={this.handleChange.bind(this)} value={this.state.newStorySummary} style={{ resize: "none", }} readOnly={false} /><br></br>
+						<button className="btn btn-md btn-primary btn-transparent inputWidth" onClick={this.createStory.bind(this, this.state.newStorySummary, this.state.newStoryIssueId)}><img className="image" src="create.png" alt="submit" /><br></br>Create story</button>
 					</div>
 				)
 				break;
@@ -52,9 +52,9 @@ class CreatorViewPreview extends React.Component {
 			case -1: {
 				contentDependingOnStoryTense = (
 					<div>
-						Future Story<button onClick={() => this.props.closePreview(null)}>X</button><br></br>
-						<textarea type="text" value={this.props.previewStory.summary} style={{ resize: "none", }} readOnly={true} /><br></br>
-						<button onClick={this.startStory.bind(this, this.props.previewStory)}>Start story</button>
+						Future Story<button className="vote-btn btn btn-md btn-primary btn-right" onClick={() => this.props.closePreview(null)}>X</button><br></br>
+						<textarea type="text" className="inputWidth" value={this.props.previewStory.summary} style={{ resize: "none", }} readOnly={true} /><br></br>
+						<button className="btn btn-md btn-primary btn-transparent inputWidth" onClick={this.startStory.bind(this, this.props.previewStory)}><img className="image" src="finish.png" alt="submit" /><br></br>Start story</button>
 					</div>
 				)
 				break;
@@ -62,10 +62,10 @@ class CreatorViewPreview extends React.Component {
 			case 0: {
 				contentDependingOnStoryTense = (
 					<div>
-						Current Story<button onClick={() => this.props.closePreview(null)}>X</button><br></br>
-						<textarea type="text" value={this.props.previewStory.summary} style={{ resize: "none", }} readOnly={true} /><br></br>
-						<button onClick={() => this.props.onFinishingStory()}>Finish story</button>
-						<button onClick={this.markAsFuture.bind(this, this.props.previewStory)}>Mark as Future</button><br></br>
+						Current Story<button className="vote-btn btn btn-md btn-primary btn-right" onClick={() => this.props.closePreview(null)}>X</button><br></br>
+						<textarea type="text" className="inputWidth" value={this.props.previewStory.summary} style={{ resize: "none", }} readOnly={true} /><br></br>
+						<button className="btn btn-md btn-primary btn-transparent" onClick={() => this.props.onFinishingStory()}><img className="image" src="finish.png" alt="submit" /><br></br>Finish story</button>
+						<button className="btn btn-md btn-primary btn-transparent" onClick={this.markAsFuture.bind(this, this.props.previewStory)}><img className="image" src="send.png" alt="submit" /><br></br>Mark as Future</button><br></br>
 						Current Votes:<br></br>
 						<VoteTable story={this.props.previewStory} isFinal={false} />
 					</div>
@@ -75,10 +75,10 @@ class CreatorViewPreview extends React.Component {
 			case 1: {
 				contentDependingOnStoryTense = (
 					<div>
-						Finished Story<button onClick={() => this.props.closePreview(null)}>X</button><br></br>
-						<textarea type="text" value={this.props.previewStory.summary} style={{ resize: "none", }} readOnly={true} /><br></br>
-						<button onClick={this.revote.bind(this, this.props.previewStory)}>Revote</button>
-						<button onClick={this.markAsFuture.bind(this, this.props.previewStory)}>Mark as future</button><br></br>
+						Finished Story<button className="vote-btn btn btn-md btn-primary btn-right" onClick={() => this.props.closePreview(null)}>X</button><br></br>
+						<textarea type="text" className="inputWidth" value={this.props.previewStory.summary} style={{ resize: "none", }} readOnly={true} /><br></br>
+						<button className="btn btn-md btn-primary btn-transparent" onClick={this.revote.bind(this, this.props.previewStory)}><img className="image" src="FinalRevote.png" alt="submit" /><br></br>Revote</button>
+						<button className="btn btn-md btn-primary btn-transparent" onClick={this.markAsFuture.bind(this, this.props.previewStory)}><img className="image" src="send.png" alt="submit" /><br></br>Mark as future</button><br></br>
 						Past Votes:<br></br>
 						<VoteTable story={this.props.previewStory} isFinal={true} />
 					</div>
