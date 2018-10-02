@@ -5,53 +5,42 @@ import CreatorView from './CreatorView'
 import LoginView from './LoginView'
 import SocketManager from './SocketManager';
 import openSocket from 'socket.io-client';
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 
 const socket = openSocket('http://localhost:8080');
 
 class MainView extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { isLoggedIn: false, data: null };
+		this.state = { isLoggedIn: false, data: null, cookies: this.props.cookies };
 		SocketManager.setSocket(socket);
 	}
+	static propTypes = {
+		cookies: instanceOf(Cookies).isRequired
+	};
 	handleUpdate(dataFromServer) {
+		if (this.state.isLoggedIn === false) {
+			this.switchToVoteView(dataFromServer);
+		}
 		this.setState({
-			isLoggedIn: true,
 			data: dataFromServer
 		});
 	}
 	componentDidMount() {
-		SocketManager.addListeners(this.handleUpdate.bind(this));
+		SocketManager.addListeners(this.handleUpdate.bind(this), this.state.cookies);
+		SocketManager.rejoinSession(this.state.cookies.get("login"), this.state.cookies.get("userId"), this.state.cookies.get("sessionId"));
 	}
 	componentWillUnmount() {
-		SocketManager.removeListeners(this.handleUpdate.bind(this));
+		SocketManager.removeListeners(this.handleUpdate.bind(this), this.state.cookies);
 	}
-	switchViews() {
+	switchToVoteView(dataFromServer) {
+		this.state.cookies.set("login", dataFromServer.login, { maxAge: 3600 * 24, path: '/' });
+		this.state.cookies.set("userId", dataFromServer.userId, { maxAge: 3600 * 24, path: '/' });
+		this.state.cookies.set("sessionId", dataFromServer.sessionId, { maxAge: 3600 * 24, path: '/' });
 		this.setState({
-			data: {
-				login: "czareg",
-				userId: 1234,
-				sessionId: 134134,
-				isSuperUser: true,
-				currentStory: [{ tense: 0, issueId: "I-11119", summary: "AsdasdasdasdasdddbAsdasdasdasdasdddb", shortSummary: "Asdasdasdasdasdddb...", users: [{ name: "MICHAU" }, { name: "Robak" }], votes: [3, 5], finalScore: 0 }],
-				userList: [{ name: "Czareg", isActive: false, isCreator: true }, { name: "Wojteg", isActive: true, isCreator: false }],
-				futureStories: [{ tense: -1, issueId: "I-91919", summary: "blellbelleblelbblellbelleblelb", shortSummary: "blellbelleblelb..." }, { tense: -1, issueId: "I-91919", summary: "blellbelleblelbblellbelleblelb", shortSummary: "blellbelleblelb..." }],
-				pastStories: [{ tense: 1, issueId: "I-42319", summary: "HelpHelpHelpHelpHelpHelpHelpHelpHelp", shortSummary: "Help...", users: [{ name: "Czareg" }, { name: "Bozena" }], votes: [0, 5], finalScore: 1 }],
-				/*
-				data: {
-					login: "czareg",
-					userId: 1234,
-					sessionId: 134134,
-					isSuperUser: false,
-					currentStory: [{ summary: "AsdasdasdasdasdddbAsdasdasdasdasdddb"}],
-					userList: [{ name: "Czareg", isActive: false, isCreator: true }, { name: "Wojteg", isActive: true, isCreator: false }],
-				}
-				*/
-			}
+			isLoggedIn: true,
 		});
-		this.setState((prevState) => ({
-			isLoggedIn: !prevState.isLoggedIn
-		}));
 	}
 
 	render() {
@@ -82,11 +71,9 @@ class MainView extends React.Component {
 			return (
 				<div className="MainView">
 					<LoginView />
-					<button onClick={this.switchViews.bind(this)}>Skip login (only for testing)</button>
 				</div>
 			);
 		}
 	}
 }
-
-export default MainView;
+export default withCookies(MainView);

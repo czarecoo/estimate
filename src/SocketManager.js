@@ -8,16 +8,27 @@ class SocketManager extends React.Component {
 	static setSocket(s) {
 		this.socket = s;
 	}
-	static addListeners(handleUpdate) {
+	static addListeners(handleUpdate, cookies) {
 		this.socket.on('updateResponse', (data) => handleUpdate(data));
 		this.socket.on('activityRequest', () => this.socket.emit('activityResponse'));
-		this.socket.on('sessionClosingCommand', () => window.location.reload());
+		this.socket.on('sessionClosingCommand', () => {
+			cookies.remove("login");
+			cookies.remove("userId");
+			cookies.remove("sessionId");
+			window.location.reload();
+		});
 		this.socket.on('coffeeCommand', (userName) => alert(userName + " asked for coffee break."));
 	}
-	static removeListeners(handleUpdate) {
+	static removeListeners(handleUpdate, cookies) {
 		this.socket.removeListener('updateResponse', (data) => handleUpdate(data));
 		this.socket.removeListener('activityRequest', () => this.socket.emit('activityResponse'));
-		this.socket.removeListener('sessionClosingCommand', () => window.location.reload());
+		this.socket.removeListener('sessionClosingCommand', () => {
+			cookies.remove("login");
+			cookies.remove("userId");
+			cookies.remove("sessionId");
+			window.location.reload();
+		});
+
 		this.socket.removeListener('coffeeCommand', (userName) => alert(userName + " asked for coffee break."));
 	}
 	static createSession(userName) {
@@ -29,8 +40,14 @@ class SocketManager extends React.Component {
 	static joinSession(userName, serverId) {
 		this.socket.emit('joinSessionRequest', userName, serverId);
 	}
+	static rejoinSession(login, userId, sessionId) {
+		this.socket.emit('rejoinSessionRequest', login, userId, sessionId);
+	}
 	static closeSession() {
 		this.socket.emit('closeSessionRequest');
+	}
+	static leaveSession() {
+		this.socket.emit('leaveSessionRequest');
 	}
 	static vote(vote) {
 		this.socket.emit('voteRequest', vote);
