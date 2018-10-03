@@ -5,7 +5,12 @@ import SocketManager from './SocketManager';
 class LoginView extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { isJoinSession: false, isSessionWithJira: false, login: "user" + (Math.round(Math.random() * 100)), sessionId: '', jiraUrl: 'https://adamjestem.atlassian.net', jiraLogin: 'adam96stan@gmail.com', jiraPassword: 'Cedynia97@', jiraProject: 'ToTylkoDoPobrania' };
+		this.state = {
+			isJoinSession: false, isSessionWithJira: false,
+			login: "user" + (Math.round(Math.random() * 100)), sessionId: '',
+			jiraUrl: 'https://adamjestem.atlassian.net', jiraLogin: 'adam96stan@gmail.com',
+			jiraPassword: 'Cedynia97@', jiraProject: 'ToTylkoDoPobrania', jiraProjectKey: 'TOT'
+		};
 	}
 
 	isJoinChange() {
@@ -33,7 +38,7 @@ class LoginView extends React.Component {
 			SocketManager.joinSession(this.state.login, this.state.sessionId);
 		} else {
 			if (this.state.isSessionWithJira) {
-				SocketManager.createSessionWithJira(this.state.login, this.state.jiraLogin, this.state.jiraPassword, this.state.jiraUrl, this.state.jiraProject);
+				SocketManager.createSessionWithJira(this.state.login, this.state.jiraLogin, this.state.jiraPassword, this.state.jiraUrl, this.state.jiraProject, this.state.jiraProjectKey);
 			} else {
 				SocketManager.createSession(this.state.login);
 			}
@@ -51,7 +56,9 @@ class LoginView extends React.Component {
 				<input className="" name="jiraPassword" type="password" value={this.state.jiraPassword} onChange={this.handleChange.bind(this)} required />
 				<br></br><label>Jira Project Name: </label><br></br>
 				<input className="" name="jiraProject" type="text" value={this.state.jiraProject} onChange={this.handleChange.bind(this)} required />
-			</p >
+				<br></br><label>Jira Project Key: </label><br></br>
+				<input className="" name="jiraProjectKey" type="text" value={this.state.jiraProjectKey} onChange={this.handleChange.bind(this)} required />
+			</p>
 		);
 		const jiraCheckboxContent = (
 			<p>
@@ -66,10 +73,10 @@ class LoginView extends React.Component {
 		);
 		return (
 			<div className="LoginView">
-				Enter your User Name:<br></br>
-				<input className="loginText" name="login" type="text" value={this.state.login} onChange={this.handleChange.bind(this)} /><br></br>
+				Name:<br></br>
+				<input className="loginText" placeholder="Enter your User Name" name="login" type="text" value={this.state.login} onChange={this.handleChange.bind(this)} /><br></br>
 				<label><input type="radio" name="isJoiningSessionRadio" checked={!this.state.isJoinSession} onChange={this.isJoinChange.bind(this)} /> Create Session</label><br></br>
-				<label><input type="radio" name="isJoiningSessionRadio" checked={this.state.isJoinSession} onChange={this.isJoinChange.bind(this)} /> Join Session</label>
+				<label><input type="radio" name="isJoiningSessionRadio" checked={this.state.isJoinSession} onChange={this.isJoinChange.bind(this)} /> Join Session</label><br></br>
 				{this.state.isJoinSession ? sessionIdTextContent : jiraCheckboxContent}
 				{this.state.isSessionWithJira ? jiraDataTextContent : ""}
 				<button type="submit" className="btn btn-md btn-primary btn-transparent btn-center" onClick={this.tryToConnect.bind(this)}><img className="image" src="create.png" alt="submit" /><br></br>{this.state.isJoinSession ? "Join Session" : "Create session"}</button>
