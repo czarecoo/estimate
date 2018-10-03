@@ -75,12 +75,11 @@ class LoginView extends React.Component {
 			<div className="LoginView">
 				Name:<br></br>
 				<input className="loginText" placeholder="Enter your User Name" name="login" type="text" value={this.state.login} onChange={this.handleChange.bind(this)} /><br></br>
-				Would you like to:<br></br>
-				<label><input type="radio" name="isJoiningSessionRadio" checked={!this.state.isJoinSession} onChange={this.isJoinChange.bind(this)} /> Create Session</label>
-				<label><input type="radio" name="isJoiningSessionRadio" checked={this.state.isJoinSession} onChange={this.isJoinChange.bind(this)} /> Join Session</label>
+				<label><input type="radio" name="isJoiningSessionRadio" checked={!this.state.isJoinSession} onChange={this.isJoinChange.bind(this)} /> Create Session</label><br></br>
+				<label><input type="radio" name="isJoiningSessionRadio" checked={this.state.isJoinSession} onChange={this.isJoinChange.bind(this)} /> Join Session</label><br></br>
 				{this.state.isJoinSession ? sessionIdTextContent : jiraCheckboxContent}
 				{this.state.isSessionWithJira ? jiraDataTextContent : ""}
-				<button type="submit" onClick={this.tryToConnect.bind(this)}>{this.state.isJoinSession ? "Join Session" : "Create session"}</button>
+				<button type="submit" className="btn btn-md btn-primary btn-transparent btn-center" onClick={this.tryToConnect.bind(this)}><img className="image" src="create.png" alt="submit" /><br></br>{this.state.isJoinSession ? "Join Session" : "Create session"}</button>
 			</div>
 		);
 	}

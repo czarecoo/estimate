@@ -68,7 +68,7 @@ class CreatorView extends React.Component {
 						<CreatorViewStoriesList storyList={this.props.data.pastStories} onSelectingStory={this.handlePreviewChange.bind(this)} canAdd={false} />
 					</div>
 					<div className="col-xs-12 col-md-8 col-lg-8 col-xl-8">
-						Finish Story <button onClick={this.handleFinishStory.bind(this)}>X</button><br></br>
+						Finish Story <button className="vote-btn btn btn-md btn-primary btn-right" onClick={this.handleFinishStory.bind(this)}>X</button><br></br>
 						<VoteTable story={actualPreview} isFinal={false} />
 						<CreatorViewFinalVote scores={this.props.scores} userStory={actualPreview} onFinishStory={this.handleFinishStory.bind(this)} closePreview={this.handlePreviewChange.bind(this)} />
 					</div>

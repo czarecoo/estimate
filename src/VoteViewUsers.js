@@ -12,8 +12,8 @@ class VoteViewUsers extends React.Component {
 
 		if (this.props.userList.length > 0) {
 			return (
-				<div className="Users col-xs-12 col-md-4 col-lg-4 col-xl-4">
-					Users:
+				<div className="Users col-xs-12 col-md-4 col-lg-4 col-xl-4"><br></br>
+					<img className="usersLabel" src="active.png" alt="" />
 					<table className="chat">
 						<tbody>
 							{users}
@@ -36,16 +36,16 @@ class User extends React.Component {
 		SocketManager.passCreator(user);
 	}
 	render() {
-		var activity = (<img src="user-inactive.png" alt="" />);
+		var activity = (<img src="user-inactive.png" alt="" height="30px" width="30px" />);
 		if (this.props.isActive) {
-			activity = (<img src="user-active.png" alt="" />);
+			activity = (<img src="user-active.png" alt="" height="30px" width="30px" />);
 		}
 		var creatorImg = null;
 		if (this.props.isCreator) {
-			creatorImg = (<td className="creatorImg"><img src="creator.png" alt="" /></td>);
+			creatorImg = (<td className="creatorImg"><img src="creator.png" alt="" height="30px" width="30px" /></td>);
 		} else {
 			if (this.props.isSuperUser) {
-				creatorImg = (<td className="chat"><button onClick={this.passCreator.bind(this, this.props.user)}>Pass creator</button></td>);
+				creatorImg = (<td className="chat"><button className="btn btn-md btn-primary btn-transparent" onClick={this.passCreator.bind(this, this.props.user)}>Pass creator</button></td>);
 			}
 		}
 		if (this.props.isSuperUser) {
@@ -53,7 +53,7 @@ class User extends React.Component {
 				<tr className="chat">
 					<td className="chat"><b>{this.props.name}</b></td>
 					<td>{activity}</td>
-					<td className="chat"><button onClick={this.kick.bind(this, this.props.user)}>Kick</button></td>
+					<td className="chat"><button className="btn btn-md btn-primary btn-transparent" onClick={this.kick.bind(this, this.props.user)}>Kick</button></td>
 					{creatorImg}
 				</tr>
 			);
