@@ -48,16 +48,18 @@ class LoginView extends React.Component {
 	render() {
 		const jiraDataTextContent = (
 			<p>
-				<label>Jira Url: </label><br></br>
+				<label>Jira Url:</label><br></br>
 				<input className="" name="jiraUrl" type="text" value={this.state.jiraUrl} onChange={this.handleChange.bind(this)} required />
-				<br></br><label>Jira Login: </label><br></br>
+				<br></br><label>Jira Login:</label><br></br>
 				<input className="" name="jiraLogin" type="text" value={this.state.jiraLogin} onChange={this.handleChange.bind(this)} required />
-				<br></br><label>Jira Password: </label><br></br>
+				<br></br><label>Jira Password:</label><br></br>
 				<input className="" name="jiraPassword" type="password" value={this.state.jiraPassword} onChange={this.handleChange.bind(this)} required />
-				<br></br><label>Jira Project Name: </label><br></br>
-				<input className="" name="jiraProject" type="text" value={this.state.jiraProject} onChange={this.handleChange.bind(this)} required />
-				<br></br><label>Jira Project Key: </label><br></br>
+				<br></br><label>Jira Project Key:</label><br></br>
 				<input className="" name="jiraProjectKey" type="text" value={this.state.jiraProjectKey} onChange={this.handleChange.bind(this)} required />
+				<br></br><label>Jira Project Name:</label><br></br>
+				<input className="" name="jiraProject" type="text" value={this.state.jiraProject} onChange={this.handleChange.bind(this)} required />
+				<br></br>Jira Url, Login, Password and Project Key are required to fetch issues from jira.<br></br>
+				All fields are required to send issues created in this app to jira.
 			</p>
 		);
 		const jiraCheckboxContent = (
