@@ -9,7 +9,7 @@ class CreatorViewStoriesList extends React.Component {
 	render() {
 		var stories = this.props.storyList.map((story, i) => {
 			return (
-				<button key={i} className="btn btn-md btn-primary btn-transparent" onClick={() => { this.props.onSelectingStory(story) }}>{story.issueId}<br></br>{story.shortSummary}</button>
+				<button key={i} className="btn btn-md btn-primary vote-btn" onClick={() => { this.props.onSelectingStory(story) }}>{story.issueId}<br></br>{story.shortSummary}</button>
 			)
 		});
 		return (

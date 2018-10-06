@@ -15,7 +15,8 @@ class MainView extends React.Component {
 		super(props);
 		this.state = {
 			isLoggedIn: false, data: null, cookies: this.props.cookies,
-			scores: [1, 2, 3, 5, 8, 13, 21]
+			scores: [1, 2, 3, 5, 8, 13, 21],
+			scoresWithZero: [1, 2, 3, 5, 8, 13, 21, 0]
 		};
 		SocketManager.setSocket(socket);
 	}
@@ -52,14 +53,14 @@ class MainView extends React.Component {
 				if (this.state.data.isSuperUser) {
 					return (
 						<div className="MainView">
-							<VoteView data={this.state.data} />
+							<VoteView data={this.state.data} scores={this.state.scoresWithZero} />
 							<CreatorView data={this.state.data} scores={this.state.scores} />
 						</div>
 					);
 				} else {
 					return (
 						<div className="MainView">
-							<VoteView data={this.state.data} />
+							<VoteView data={this.state.data} scores={this.state.scoresWithZero} />
 						</div>
 					);
 				}
