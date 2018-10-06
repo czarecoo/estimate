@@ -30,7 +30,7 @@ class CreatorViewFinalVote extends React.Component {
 			return false;
 		}).map((score, i) => {
 			return (
-				<th key={i}><button className="vote-btn btn btn-md btn-primary" onClick={this.setFinalScore.bind(this)} value={score}>{score}</button></th>
+				<th key={i}><button className="vote-btn btn btn-md btn-primary" style={{ background: parseInt(this.state.finalScore, 10) === score ? 'green' : "" }} onClick={this.setFinalScore.bind(this)} value={score}>{score}</button></th>
 			)
 		});
 		return (

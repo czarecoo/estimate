@@ -79,7 +79,7 @@ class LoginView extends React.Component {
 				<label><input type="radio" name="isJoiningSessionRadio" checked={this.state.isJoinSession} onChange={this.isJoinChange.bind(this)} /> Join Session</label><br></br>
 				{this.state.isJoinSession ? sessionIdTextContent : jiraCheckboxContent}
 				{this.state.isSessionWithJira ? jiraDataTextContent : ""}
-				<button type="submit" className="btn btn-md btn-primary btn-transparent btn-center" onClick={this.tryToConnect.bind(this)}><img className="image" src="create.png" alt="submit" /><br></br>{this.state.isJoinSession ? "Join Session" : "Create session"}</button>
+				<button type="submit" className="btn btn-md btn-primary vote-btn btn-center" onClick={this.tryToConnect.bind(this)}><img className="image" src="create.png" alt="submit" /><br></br>{this.state.isJoinSession ? "Join Session" : "Create session"}</button>
 			</div>
 		);
 	}
