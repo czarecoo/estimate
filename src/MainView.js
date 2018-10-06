@@ -4,9 +4,11 @@ import VoteView from './VoteView'
 import CreatorView from './CreatorView'
 import LoginView from './LoginView'
 import SocketManager from './SocketManager';
+import AlertManager from './AlertManager';
 import openSocket from 'socket.io-client';
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
+import { withAlert } from 'react-alert';
 
 const socket = openSocket('http://localhost:8080');
 
@@ -19,6 +21,7 @@ class MainView extends React.Component {
 			scoresWithZero: [1, 2, 3, 5, 8, 13, 21, 0]
 		};
 		SocketManager.setSocket(socket);
+		AlertManager.setSocket(this.props.alert);
 	}
 	static propTypes = {
 		cookies: instanceOf(Cookies).isRequired
@@ -74,4 +77,4 @@ class MainView extends React.Component {
 		}
 	}
 }
-export default withCookies(MainView);
+export default withAlert(withCookies(MainView));

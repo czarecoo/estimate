@@ -13,8 +13,8 @@ class CreatorViewFinalVote extends React.Component {
 		this.setState({ finalScore: event.target.value });
 	}
 	finishStory(story) {
+		SocketManager.finishStory(story, this.state.finalScore);
 		if (this.state.finalScore !== 0) {
-			SocketManager.finishStory(story, this.state.finalScore);
 			this.props.onFinishStory();
 		}
 	}
@@ -24,6 +24,9 @@ class CreatorViewFinalVote extends React.Component {
 	}
 	render() {
 		var buttons = this.props.scores.filter((score) => {
+			if (Math.min.apply(Math, this.props.userStory.votes) === 0) {
+				return true;
+			}
 			if (score >= Math.min.apply(Math, this.props.userStory.votes) && score <= Math.max.apply(Math, this.props.userStory.votes)) {
 				return true;
 			}

@@ -1,4 +1,5 @@
 import React from 'react';
+import AlertManager from './AlertManager';
 
 class SocketManager extends React.Component {
 	constructor(props) {
@@ -17,7 +18,8 @@ class SocketManager extends React.Component {
 			cookies.remove("sessionId");
 			window.location.reload();
 		});
-		this.socket.on('coffeeCommand', (userName) => alert(userName + " asked for coffee break."));
+		this.socket.on('coffeeCommand', (userName) => AlertManager.show(userName + " asked for coffee break."));
+		this.socket.on('errorCommand', (msg) => AlertManager.show(msg));
 	}
 	static removeListeners(handleUpdate, cookies) {
 		this.socket.removeListener('updateResponse', (data) => handleUpdate(data));
@@ -28,8 +30,8 @@ class SocketManager extends React.Component {
 			cookies.remove("sessionId");
 			window.location.reload();
 		});
-
-		this.socket.removeListener('coffeeCommand', (userName) => alert(userName + " asked for coffee break."));
+		this.socket.removeListener('coffeeCommand', (userName) => AlertManager.show(userName + " asked for coffee break."));
+		this.socket.removeListener('errorCommand', (msg) => AlertManager.show(msg));
 	}
 	static createSession(userName) {
 		this.socket.emit('createSessionRequest', userName);
@@ -53,7 +55,7 @@ class SocketManager extends React.Component {
 		this.socket.emit('voteRequest', vote);
 	}
 	static coffee() {
-		alert("You asked for coffee break.");
+		AlertManager.show("You asked for coffee break.");
 		this.socket.emit('coffeeRequest');
 	}
 	static kick(user) {
