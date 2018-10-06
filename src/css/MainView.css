@@ -1,3 +1,7 @@
 .MainView {
 	margin-left: 5%;
+	margin-right: 5%;
+}
+.MainViewContent{
+	background: rgba(0, 0, 0, 0.3) /* Black background with 30% opacity */
 }

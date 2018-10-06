@@ -44,8 +44,8 @@ class CreatorViewFinalVote extends React.Component {
 					</tbody>
 				</table>
 				Final score: {this.state.finalScore}<br></br>
-				<button className="btn btn-md btn-primary vote-btn" onClick={this.finishStory.bind(this, this.props.userStory)}><img className="image" src="finish.png" alt="submit" /><br></br>Finish story</button><br></br>
-				<button className="btn btn-md btn-primary vote-btn" onClick={this.revote.bind(this, this.props.userStory)}><img className="image" src="FinalRevote.png" alt="submit" /><br></br>Revote</button><br></br>
+				<button className="btn btn-md btn-primary vote-btn" onClick={this.finishStory.bind(this, this.props.userStory)}><img className="image" src="finish.png" alt="submit" /><br></br>Finish story</button>
+				<button className="btn btn-md btn-primary vote-btn" onClick={this.revote.bind(this, this.props.userStory)}><img className="image" src="FinalRevote.png" alt="submit" /><br></br>Revote</button>
 
 			</div>
 		);

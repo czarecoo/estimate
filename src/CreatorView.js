@@ -56,41 +56,35 @@ class CreatorView extends React.Component {
 	}
 	render() {
 		var actualPreview = this.setActualPreviewStory();
+		var contentDependingOnState;
 		if (this.state.isFinishingStory) {
-			return (
-				<div className="CreatorView row">
-					<div className="col-xs-12 col-md-4 col-lg-4 col-xl-4">
-						List of future stories:<br></br>
-						<CreatorViewStoriesList storyList={this.props.data.futureStories} onSelectingStory={this.handlePreviewChange.bind(this)} canAdd={true} />
-						Current Story:<br></br>
-						<CreatorViewStoriesList storyList={this.props.data.currentStory} onSelectingStory={this.handlePreviewChange.bind(this)} canAdd={false} />
-						List of finished stories:<br></br>
-						<CreatorViewStoriesList storyList={this.props.data.pastStories} onSelectingStory={this.handlePreviewChange.bind(this)} canAdd={false} />
-					</div>
-					<div className="col-xs-12 col-md-8 col-lg-8 col-xl-8">
-						Finish Story <button className="vote-btn btn btn-md btn-primary btn-right" onClick={this.handleFinishStory.bind(this)}>X</button><br></br>
-						<VoteTable story={actualPreview} isFinal={false} />
-						<CreatorViewFinalVote scores={this.props.scores} userStory={actualPreview} onFinishStory={this.handleFinishStory.bind(this)} closePreview={this.handlePreviewChange.bind(this)} />
-					</div>
+			contentDependingOnState = (
+				<div className="col-xs-12 col-md-8 col-lg-8 col-xl-8">
+					Finish Story <button className="vote-btn btn btn-md btn-primary btn-right" onClick={this.handleFinishStory.bind(this)}>X</button><br></br>
+					<VoteTable story={actualPreview} isFinal={false} />
+					<CreatorViewFinalVote scores={this.props.scores} userStory={actualPreview} onFinishStory={this.handleFinishStory.bind(this)} closePreview={this.handlePreviewChange.bind(this)} />
 				</div>
-			);
+			)
 		} else {
-			return (
-				<div className="CreatorView row">
-					<div className="col-xs-12 col-md-4 col-lg-4 col-xl-4">
-						List of future stories:<br></br>
-						<CreatorViewStoriesList storyList={this.props.data.futureStories} onSelectingStory={this.handlePreviewChange.bind(this)} canAdd={true} />
-						Current Story:<br></br>
-						<CreatorViewStoriesList storyList={this.props.data.currentStory} onSelectingStory={this.handlePreviewChange.bind(this)} canAdd={false} />
-						List of finished stories:<br></br>
-						<CreatorViewStoriesList storyList={this.props.data.pastStories} onSelectingStory={this.handlePreviewChange.bind(this)} canAdd={false} />
-					</div>
-					<div className="col-xs-12 col-md-8 col-lg-8 col-xl-8">
-						<CreatorViewPreview previewStory={actualPreview} data={this.props.data} onFinishingStory={this.handleFinishStory.bind(this)} closePreview={this.handlePreviewChange.bind(this)} />
-					</div>
+			contentDependingOnState = (
+				<div className="col-xs-12 col-md-8 col-lg-8 col-xl-8">
+					<CreatorViewPreview previewStory={actualPreview} data={this.props.data} onFinishingStory={this.handleFinishStory.bind(this)} closePreview={this.handlePreviewChange.bind(this)} />
 				</div>
-			);
+			)
 		}
+		return (
+			<div className="CreatorView row">
+				<div className="col-xs-12 col-md-4 col-lg-4 col-xl-4">
+					List of future stories:<br></br>
+					<CreatorViewStoriesList storyList={this.props.data.futureStories} onSelectingStory={this.handlePreviewChange.bind(this)} canAdd={true} />
+					Current Story:<br></br>
+					<CreatorViewStoriesList storyList={this.props.data.currentStory} onSelectingStory={this.handlePreviewChange.bind(this)} canAdd={false} />
+					List of finished stories:<br></br>
+					<CreatorViewStoriesList storyList={this.props.data.pastStories} onSelectingStory={this.handlePreviewChange.bind(this)} canAdd={false} />
+				</div>
+				{contentDependingOnState}
+			</div>
+		);
 	}
 }
 export default CreatorView

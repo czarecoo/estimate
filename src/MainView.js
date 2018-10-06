@@ -52,8 +52,10 @@ class MainView extends React.Component {
 			if (this.state.data != null) {
 				return (
 					<div className="MainView">
-						<VoteView data={this.state.data} scores={this.state.scoresWithZero} />
-						{this.state.data.isSuperUser ? <CreatorView data={this.state.data} scores={this.state.scores} /> : null}
+						<div className="MainViewContent">
+							<VoteView data={this.state.data} scores={this.state.scoresWithZero} />
+							{this.state.data.isSuperUser ? <CreatorView data={this.state.data} scores={this.state.scores} /> : null}
+						</div>
 					</div>
 				);
 			} else {
