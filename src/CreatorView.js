@@ -75,12 +75,16 @@ class CreatorView extends React.Component {
 		return (
 			<div className="CreatorView row">
 				<div className="col-xs-12 col-md-4 col-lg-4 col-xl-4">
+					<hr class="style13"></hr>
 					List of future stories:<br></br>
 					<CreatorViewStoriesList storyList={this.props.data.futureStories} onSelectingStory={this.handlePreviewChange.bind(this)} canAdd={true} />
+					<hr class="style13"></hr>
 					Current Story:<br></br>
 					<CreatorViewStoriesList storyList={this.props.data.currentStory} onSelectingStory={this.handlePreviewChange.bind(this)} canAdd={false} />
+					<hr class="style13"></hr>
 					List of finished stories:<br></br>
 					<CreatorViewStoriesList storyList={this.props.data.pastStories} onSelectingStory={this.handlePreviewChange.bind(this)} canAdd={false} />
+					<hr class="style13"></hr>
 				</div>
 				{contentDependingOnState}
 			</div>

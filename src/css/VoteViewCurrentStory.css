@@ -11,6 +11,7 @@ img.coffee{
 
 .storyWidth{
 	width: 65%;
+	min-width: 400px;
 }
 
 .btn-width{

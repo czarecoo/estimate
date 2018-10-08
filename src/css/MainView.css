@@ -3,5 +3,6 @@
 	margin-right: 5%;
 }
 .MainViewContent{
-	background: rgba(0, 0, 0, 0.3) /* Black background with 30% opacity */
+	background: rgba(0, 0, 0, 0.3); /* Black background with 30% opacity */
+	min-width: 400px;
 }
