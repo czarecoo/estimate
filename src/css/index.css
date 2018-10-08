@@ -48,3 +48,7 @@ input{
 textarea{
 	border-radius: 5px;	
 }
+
+.fullWidth{
+	width: 100%;
+}

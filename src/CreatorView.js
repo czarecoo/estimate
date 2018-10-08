@@ -18,7 +18,7 @@ class CreatorView extends React.Component {
 		if (story !== null && story.tense === -2) {
 			this.setState({ previewStory: story });
 		}
-		if (story !== null && (this.state.previewStory === null || this.state.previewStory.issueId !== story.issueId)) {
+		if (story !== null && (this.state.previewStory === null || (this.state.previewStory.summary !== story.summary && this.state.previewStory.description !== story.description))) {
 			this.setState({ previewStory: story });
 		} else {
 			this.setState({ previewStory: null });
@@ -36,17 +36,17 @@ class CreatorView extends React.Component {
 			}
 			var i;
 			for (i = 0; i < this.props.data.futureStories.length; i++) {
-				if (this.props.data.futureStories[i].issueId === this.state.previewStory.issueId) {
+				if (this.props.data.futureStories[i].summary === this.state.previewStory.summary && this.props.data.futureStories[i].description === this.state.previewStory.description) {
 					return this.props.data.futureStories[i];
 				}
 			}
 			for (i = 0; i < this.props.data.currentStory.length; i++) {
-				if (this.props.data.currentStory[i].issueId === this.state.previewStory.issueId) {
+				if (this.props.data.currentStory[i].summary === this.state.previewStory.summary && this.props.data.currentStory[i].description === this.state.previewStory.description) {
 					return this.props.data.currentStory[i];
 				}
 			}
 			for (i = 0; i < this.props.data.pastStories.length; i++) {
-				if (this.props.data.pastStories[i].issueId === this.state.previewStory.issueId) {
+				if (this.props.data.pastStories[i].summary === this.state.previewStory.summary && this.props.data.pastStories[i].description === this.state.previewStory.description) {
 					return this.props.data.pastStories[i];
 				}
 			}

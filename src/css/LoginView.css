@@ -1,6 +1,7 @@
 .LoginView {
   margin: 0 auto;
   width: 40%;
+  min-width: 300px;
   background: rgba(0, 0, 0, 0.3) /* Black background with 30% opacity */
 }
 

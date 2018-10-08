@@ -1,5 +1,6 @@
 import React from 'react';
 import './css/CreatorViewStoriesList.css';
+const MAX_CHARS_SHORT_SUMARY = 12;
 
 class CreatorViewStoriesList extends React.Component {
 	emptyStory() {
@@ -9,7 +10,7 @@ class CreatorViewStoriesList extends React.Component {
 	render() {
 		var stories = this.props.storyList.map((story, i) => {
 			return (
-				<button key={i} className="btn btn-md btn-primary vote-btn" onClick={() => { this.props.onSelectingStory(story) }}>{story.issueId}<br></br>{story.shortSummary}</button>
+				<button key={i} className="btn btn-md btn-primary vote-btn" onClick={() => { this.props.onSelectingStory(story) }}>{story.summary.length > MAX_CHARS_SHORT_SUMARY ? story.summary.substring(0, MAX_CHARS_SHORT_SUMARY) + "..." : story.summary}<br></br>{story.description.length > MAX_CHARS_SHORT_SUMARY ? story.description.substring(0, MAX_CHARS_SHORT_SUMARY) + "..." : story.description}</button>
 			)
 		});
 		return (

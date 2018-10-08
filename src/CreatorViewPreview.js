@@ -8,7 +8,7 @@ class CreatorViewPreview extends React.Component {
 		super(props);
 		this.state = {
 			newStorySummary: "",
-			newStoryIssueId: ""
+			newStoryDescription: ""
 		}
 	}
 
@@ -18,12 +18,12 @@ class CreatorViewPreview extends React.Component {
 	startStory(story) {
 		SocketManager.startStory(story);
 	}
-	createStory(summary, id) {
-		SocketManager.createStory(summary, id);
+	createStory(summary, description) {
+		SocketManager.createStory(summary, description);
 		this.props.closePreview(null);
 		this.setState({
 			newStorySummary: "",
-			newStoryIssueId: ""
+			newStoryDescription: ""
 		})
 	}
 	markAsFuture(story) {
@@ -42,9 +42,9 @@ class CreatorViewPreview extends React.Component {
 				contentDependingOnStoryTense = (
 					<div>
 						Create new story<button className="vote-btn btn btn-md btn-primary btn-right" onClick={() => this.props.closePreview(null)}>X</button><br></br>
-						<input name="newStoryIssueId" className="inputWidth" onChange={this.handleChange.bind(this)} placeholder="Enter issueId" value={this.state.newStoryIssueId}></input><br></br>
-						<textarea name="newStorySummary" className="inputWidth" type="text" placeholder="Enter story" onChange={this.handleChange.bind(this)} value={this.state.newStorySummary} style={{ resize: "none", }} readOnly={false} /><br></br>
-						<button className="btn btn-md btn-primary vote-btn inputWidth" onClick={this.createStory.bind(this, this.state.newStorySummary, this.state.newStoryIssueId)}><img className="image" src="create.png" alt="submit" /><br></br>Create story</button>
+						<input name="newStorySummary" className="inputWidth" onChange={this.handleChange.bind(this)} placeholder="Enter brief summary" value={this.state.newStorySummary}></input><br></br>
+						<textarea name="newStoryDescription" className="inputWidth" type="text" placeholder="Enter story description" onChange={this.handleChange.bind(this)} value={this.state.newStoryDescription} style={{ resize: "none", }} readOnly={false} /><br></br>
+						<button className="btn btn-md btn-primary vote-btn inputWidth" onClick={this.createStory.bind(this, this.state.newStorySummary, this.state.newStoryDescription)}><img className="image" src="create.png" alt="submit" /><br></br>Create story</button>
 					</div>
 				)
 				break;
@@ -53,7 +53,7 @@ class CreatorViewPreview extends React.Component {
 				contentDependingOnStoryTense = (
 					<div>
 						Future Story<button className="vote-btn btn btn-md btn-primary btn-right" onClick={() => this.props.closePreview(null)}>X</button><br></br>
-						<textarea type="text" className="inputWidth" value={this.props.previewStory.summary} style={{ resize: "none", }} readOnly={true} /><br></br>
+						<textarea type="text" className="inputWidth" value={this.props.previewStory.summary + "\n" + this.props.previewStory.description} style={{ resize: "none", }} readOnly={true} /><br></br>
 						<button className="btn btn-md btn-primary vote-btn inputWidth" onClick={this.startStory.bind(this, this.props.previewStory)}><img className="image" src="finish.png" alt="submit" /><br></br>Start story</button>
 					</div>
 				)
@@ -63,7 +63,7 @@ class CreatorViewPreview extends React.Component {
 				contentDependingOnStoryTense = (
 					<div>
 						Current Story<button className="vote-btn btn btn-md btn-primary btn-right" onClick={() => this.props.closePreview(null)}>X</button><br></br>
-						<textarea type="text" className="inputWidth" value={this.props.previewStory.summary} style={{ resize: "none", }} readOnly={true} /><br></br>
+						<textarea type="text" className="inputWidth" value={this.props.previewStory.summary + "\n" + this.props.previewStory.description} style={{ resize: "none", }} readOnly={true} /><br></br>
 						<button className="btn btn-md btn-primary vote-btn" onClick={() => this.props.onFinishingStory()}><img className="image" src="finish.png" alt="submit" /><br></br>Finish story</button>
 						<button className="btn btn-md btn-primary vote-btn" onClick={this.markAsFuture.bind(this, this.props.previewStory)}><img className="image" src="send.png" alt="submit" /><br></br>Mark as Future</button><br></br>
 						Current Votes:<br></br>
@@ -76,7 +76,7 @@ class CreatorViewPreview extends React.Component {
 				contentDependingOnStoryTense = (
 					<div>
 						Finished Story<button className="vote-btn btn btn-md btn-primary btn-right" onClick={() => this.props.closePreview(null)}>X</button><br></br>
-						<textarea type="text" className="inputWidth" value={this.props.previewStory.summary} style={{ resize: "none", }} readOnly={true} /><br></br>
+						<textarea type="text" className="inputWidth" value={this.props.previewStory.summary + "\n" + this.props.previewStory.description} style={{ resize: "none", }} readOnly={true} /><br></br>
 						<button className="btn btn-md btn-primary vote-btn" onClick={this.revote.bind(this, this.props.previewStory)}><img className="image" src="FinalRevote.png" alt="submit" /><br></br>Revote</button>
 						<button className="btn btn-md btn-primary vote-btn" onClick={this.markAsFuture.bind(this, this.props.previewStory)}><img className="image" src="send.png" alt="submit" /><br></br>Mark as future</button><br></br>
 						Past Votes:<br></br>

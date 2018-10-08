@@ -7,5 +7,8 @@ class AlertManager extends React.Component {
 	static show(msg) {
 		this.alert.info(msg);
 	}
+	static error(msg) {
+		this.alert.error(msg);
+	}
 }
 export default AlertManager;

@@ -27,6 +27,7 @@ class MainView extends React.Component {
 		cookies: instanceOf(Cookies).isRequired
 	};
 	handleUpdate(dataFromServer) {
+		console.log(dataFromServer);
 		if (this.state.isLoggedIn === false) {
 			this.switchToVoteView(dataFromServer);
 		}

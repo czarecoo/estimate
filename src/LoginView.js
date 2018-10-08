@@ -1,6 +1,7 @@
 import React from 'react';
 import './css/LoginView.css';
 import SocketManager from './SocketManager';
+import AlertManager from './AlertManager';
 
 class LoginView extends React.Component {
 	constructor(props) {
@@ -8,8 +9,8 @@ class LoginView extends React.Component {
 		this.state = {
 			isJoinSession: false, isSessionWithJira: false,
 			login: "user" + (Math.round(Math.random() * 100)), sessionId: '',
-			jiraUrl: 'https://adamjestem.atlassian.net', jiraLogin: 'adam96stan@gmail.com',
-			jiraPassword: 'Cedynia97@', jiraProject: 'ToTylkoDoPobrania', jiraProjectKey: 'TOT'
+			jiraUrl: 'https://jiraczareg.atlassian.net', jiraLogin: '187842@edu.p.lodz.pl',
+			jiraPassword: '4funrulez', jiraProject: 'PrzykladowyProjekt', jiraProjectKey: 'PRZYK'
 		};
 	}
 
@@ -34,30 +35,35 @@ class LoginView extends React.Component {
 	}
 
 	tryToConnect() {
-		if (this.state.isJoinSession) {
-			SocketManager.joinSession(this.state.login, this.state.sessionId);
-		} else {
-			if (this.state.isSessionWithJira) {
-				SocketManager.createSessionWithJira(this.state.login, this.state.jiraLogin, this.state.jiraPassword, this.state.jiraUrl, this.state.jiraProject, this.state.jiraProjectKey);
+		if (this.state.login !== "") {
+			if (this.state.isJoinSession) {
+				SocketManager.joinSession(this.state.login, this.state.sessionId);
 			} else {
-				SocketManager.createSession(this.state.login);
+				if (this.state.isSessionWithJira) {
+					SocketManager.createSessionWithJira(this.state.login, this.state.jiraLogin, this.state.jiraPassword, this.state.jiraUrl, this.state.jiraProject, this.state.jiraProjectKey);
+				} else {
+					SocketManager.createSession(this.state.login);
+				}
 			}
+		} else {
+			AlertManager.error("Please enter correct user name");
 		}
+
 	}
 
 	render() {
 		const jiraDataTextContent = (
 			<p>
 				<label>Jira Url:</label><br></br>
-				<input className="" name="jiraUrl" type="text" value={this.state.jiraUrl} onChange={this.handleChange.bind(this)} required />
+				<input className="fullWidth" name="jiraUrl" type="text" value={this.state.jiraUrl} onChange={this.handleChange.bind(this)} required />
 				<br></br><label>Jira Login:</label><br></br>
-				<input className="" name="jiraLogin" type="text" value={this.state.jiraLogin} onChange={this.handleChange.bind(this)} required />
+				<input className="fullWidth" name="jiraLogin" type="text" value={this.state.jiraLogin} onChange={this.handleChange.bind(this)} required />
 				<br></br><label>Jira Password:</label><br></br>
-				<input className="" name="jiraPassword" type="password" value={this.state.jiraPassword} onChange={this.handleChange.bind(this)} required />
+				<input className="fullWidth" name="jiraPassword" type="password" value={this.state.jiraPassword} onChange={this.handleChange.bind(this)} required />
 				<br></br><label>Jira Project Key:</label><br></br>
-				<input className="" name="jiraProjectKey" type="text" value={this.state.jiraProjectKey} onChange={this.handleChange.bind(this)} required />
+				<input className="fullWidth" name="jiraProjectKey" type="text" value={this.state.jiraProjectKey} onChange={this.handleChange.bind(this)} required />
 				<br></br><label>Jira Project Name:</label><br></br>
-				<input className="" name="jiraProject" type="text" value={this.state.jiraProject} onChange={this.handleChange.bind(this)} required />
+				<input className="fullWidth" name="jiraProject" type="text" value={this.state.jiraProject} onChange={this.handleChange.bind(this)} required />
 				<br></br>Jira Url, Login, Password and Project Key are required to fetch issues from jira.<br></br>
 				All fields are required to send issues created in this app to jira.
 			</p>
@@ -70,13 +76,13 @@ class LoginView extends React.Component {
 		const sessionIdTextContent = (
 			<p>
 				Enter sessionID:<br></br>
-				<input className="sessionIdText" name="sessionId" type="text" value={this.state.sessionId} onChange={this.handleChange.bind(this)} required />
+				<input className="sessionIdText fullWidth" name="sessionId" type="text" value={this.state.sessionId} onChange={this.handleChange.bind(this)} required />
 			</p>
 		);
 		return (
 			<div className="LoginView">
 				Name:<br></br>
-				<input className="loginText" placeholder="Enter your User Name" name="login" type="text" value={this.state.login} onChange={this.handleChange.bind(this)} /><br></br>
+				<input className="loginText fullWidth" placeholder="Enter your User Name" name="login" type="text" value={this.state.login} onChange={this.handleChange.bind(this)} /><br></br>
 				<label><input type="radio" name="isJoiningSessionRadio" checked={!this.state.isJoinSession} onChange={this.isJoinChange.bind(this)} /> Create Session</label><br></br>
 				<label><input type="radio" name="isJoiningSessionRadio" checked={this.state.isJoinSession} onChange={this.isJoinChange.bind(this)} /> Join Session</label><br></br>
 				{this.state.isJoinSession ? sessionIdTextContent : jiraCheckboxContent}
