@@ -27,7 +27,6 @@ class MainView extends React.Component {
 		cookies: instanceOf(Cookies).isRequired
 	};
 	handleUpdate(dataFromServer) {
-		console.log(dataFromServer);
 		if (this.state.isLoggedIn === false) {
 			this.switchToVoteView(dataFromServer);
 		}
@@ -36,11 +35,11 @@ class MainView extends React.Component {
 		});
 	}
 	componentDidMount() {
-		SocketManager.addListeners(this.handleUpdate.bind(this), this.state.cookies);
+		SocketManager.addListeners(this.handleUpdate.bind(this), this.state.cookies, this.logout.bind(this));
 		SocketManager.rejoinSession(this.state.cookies.get("login"), this.state.cookies.get("userId"), this.state.cookies.get("sessionId"));
 	}
 	componentWillUnmount() {
-		SocketManager.removeListeners(this.handleUpdate.bind(this), this.state.cookies);
+		SocketManager.removeListeners(this.handleUpdate.bind(this), this.state.cookies, this.logout.bind(this));
 	}
 	switchToVoteView(dataFromServer) {
 		this.state.cookies.set("login", dataFromServer.login, { maxAge: 3600 * 24, path: '/' });
@@ -48,6 +47,11 @@ class MainView extends React.Component {
 		this.state.cookies.set("sessionId", dataFromServer.sessionId, { maxAge: 3600 * 24, path: '/' });
 		this.setState({
 			isLoggedIn: true,
+		});
+	}
+	logout() {
+		this.setState({
+			isLoggedIn: false,
 		});
 	}
 
@@ -62,13 +66,8 @@ class MainView extends React.Component {
 						</div>
 					</div>
 				);
-			} else {
-				return (
-					<div className="MainView">
-						Something went wrong...
-					</div>
-				);
 			}
+			return null;
 		} else {
 			return (
 				<div className="MainView">

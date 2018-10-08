@@ -9,26 +9,26 @@ class SocketManager extends React.Component {
 	static setSocket(s) {
 		this.socket = s;
 	}
-	static addListeners(handleUpdate, cookies) {
+	static addListeners(handleUpdate, cookies, logout) {
 		this.socket.on('updateResponse', (data) => handleUpdate(data));
 		this.socket.on('activityRequest', () => this.socket.emit('activityResponse'));
 		this.socket.on('sessionClosingCommand', () => {
 			cookies.remove("login");
 			cookies.remove("userId");
 			cookies.remove("sessionId");
-			window.location.reload();
+			logout();
 		});
 		this.socket.on('coffeeCommand', (userName) => AlertManager.show(userName + " asked for coffee break."));
 		this.socket.on('errorCommand', (msg) => AlertManager.show(msg));
 	}
-	static removeListeners(handleUpdate, cookies) {
+	static removeListeners(handleUpdate, cookies, logout) {
 		this.socket.removeListener('updateResponse', (data) => handleUpdate(data));
 		this.socket.removeListener('activityRequest', () => this.socket.emit('activityResponse'));
 		this.socket.removeListener('sessionClosingCommand', () => {
 			cookies.remove("login");
 			cookies.remove("userId");
 			cookies.remove("sessionId");
-			window.location.reload();
+			logout();
 		});
 		this.socket.removeListener('coffeeCommand', (userName) => AlertManager.show(userName + " asked for coffee break."));
 		this.socket.removeListener('errorCommand', (msg) => AlertManager.show(msg));
