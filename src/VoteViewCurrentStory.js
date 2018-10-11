@@ -18,7 +18,7 @@ class VoteViewCurrentStory extends React.Component {
 		return (
 			<div className="CurrentStory col-xs-12 col-md-8 col-lg-8 col-xl-8">
 				Current Story:<br></br>
-				<textarea className="storyWidth" name="userStory" type="text" placeholder="There is no voting going on right now..." value={this.props.userStory} style={{ resize: "none", }} readOnly={true} />
+				<textarea className="storyWidth" name="userStory" type="text" placeholder="There is no voting going on right now..." value={this.props.userStory !== null ? this.props.userStory.summary + "\n" + this.props.userStory.description : ""} style={{ resize: "none", }} readOnly={true} />
 				<table className="buttons storyWidth">
 					<tbody>
 						<tr>
